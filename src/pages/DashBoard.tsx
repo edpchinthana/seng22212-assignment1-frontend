@@ -6,7 +6,7 @@ import {
 import {Container} from "react-bootstrap";
 
 const DashBoard: React.FC = () => {
-    document.title='weatherApp | Dashboard'
+    document.title = 'weatherApp | Dashboard'
     let {sensor}: any = useParams();
 
     const renderIcon = (val: number) => {

@@ -2,16 +2,17 @@ import React from 'react';
 import './App.css';
 import Header from "./Header";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Members from "./Members";
-import Settings from "./Settings";
-import AlertHistory from "./AlertHistory";
-import About from "./About";
-import Home from "./Home";
+import Members from "./pages/Members";
+import Settings from "./pages/Settings";
+import AlertHistory from "./pages/AlertHistory";
+import About from "./pages/About";
+import Home from "./pages/Home";
 import './aserts/style-sheets/main.scss'
-import Signin from "./Signin";
-import SignUp from "./SignUp";
-import DashBoard from "./DashBoard";
+import Signin from "./pages/Signin";
+import SignUp from "./pages/SignUp";
+import DashBoard from "./pages/DashBoard";
 import {GuardedRoute, GuardProvider} from "react-router-guards";
+import Footer from "./Footer";
 const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
 
 
@@ -58,6 +59,7 @@ function App() {
                         </GuardedRoute>
                     </Switch>
                 </GuardProvider>
+                <Footer/>
             </BrowserRouter>
         </div>
     );
