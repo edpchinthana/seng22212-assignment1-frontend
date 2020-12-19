@@ -8,7 +8,7 @@ import measure from '../aserts/images/mesure.jpg';
 const Home: React.FC = () => {
     document.title = 'weatherApp | home'
     return (
-        <React.Fragment>
+        <div className='min-vh-100'>
             <br/><br/>
             <h2 className='pt-4'>Weather App 2020</h2>
 
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-        </React.Fragment>
+        </div>
     );
 }
 

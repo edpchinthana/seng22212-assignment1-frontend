@@ -46,14 +46,14 @@ const DashBoard: React.FC = () => {
 
     //Todo: add json data into this constants.
     const temperature: record[]=[ {time:0, value:34},  {time:2, value:36},  {time:4, value:28}, {time:6, value:30}, {time:8, value: 28}, {time:10, value:27}, {time:12, value:30},{time:14, value:28}, {time:16, value: 28}, {time:18, value:27}, {time:20, value: 28}, {time:22, value:27}];
-    const rain: record[]=[ {time:0, value:22},  {time:2, value:27},  {time:4, value:23}, {time:6, value:24}, {time:8, value: 22}, {time:10, value:24}, {time:12, value:30},{time:14, value:32}, {time:16, value: 32}, {time:18, value:27}, {time:20, value: 26}, {time:22, value:25}];
+    const rain: record[]=[ {time:0, value:22},  {time:2, value:27},  {time:4, value:23}, {time:6, value:24}, {time:8, value: 22}, {time:10, value:24}, {time:12, value:30},{time:14, value:32}, {time:16, value: 30}, {time:18, value:27}, {time:20, value: 26}, {time:22, value:25}];
     const wind: record[]=[ {time:0, value:34},  {time:2, value:36},  {time:4, value:44}, {time:6, value:34}, {time:8, value: 58}, {time:10, value:45}, {time:12, value:34},{time:14, value:34}, {time:16, value: 68}, {time:18, value:65}, {time:20, value: 58}, {time:22, value:45}];
     const humanity: record[]=[ {time:0, value:34},  {time:2, value:36},  {time:4, value:44}, {time:6, value:34}, {time:8, value: 38}, {time:10, value:35}, {time:12, value:20},{time:14, value:17}, {time:16, value: 18}, {time:18, value:15}, {time:20, value: 28}, {time:22, value:25}];
     const dType=(sensor==='wind')?wind:(sensor==='temperature')?temperature:(sensor==='rain')?rain:humanity;
 
     const val: number = dType[dType.length-1].value;
     const data = {
-        labels: dType.slice(Math.max(dType.length - 10, 1)).map((record:record)=> record.time),
+        labels: dType.slice(Math.max(dType.length - 10, 1)).map((record:record)=> record.time.toFixed(2)+'h'),
         datasets: [
             {
                 label: sensor,
@@ -69,7 +69,7 @@ const DashBoard: React.FC = () => {
     };
 
     return (
-        <div className='dashboard'>
+        <div className='dashboard min-vh-100'>
             <br/><br/>
             <h2 className='pt-4'>Dashboard</h2>
             <br/>

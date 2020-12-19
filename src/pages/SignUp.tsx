@@ -44,7 +44,7 @@ const SignUp: React.FC = () => {
 
     }
     return (
-        <div className="px-2 py-3 px-md-3 py-md-5">
+        <div className="px-2 py-3 px-md-3 py-md-5 min-vh-100">
             <br/><br/>
             <Form className="p-form" onSubmit={handleONSubmit}>
                 <h2>Sign up</h2>

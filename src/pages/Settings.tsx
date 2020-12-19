@@ -45,7 +45,7 @@ const Settings: React.FC = () => {
     }
 
     return (
-        <div className='vh-100'>
+        <div  className='min-vh-100'>
             <br/><br/><br/>
             <h2>Settings</h2>
             <br/>

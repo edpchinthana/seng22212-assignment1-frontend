@@ -10,7 +10,7 @@ import Hansika from '../aserts/images/Hansika.png'
 const Members: React.FC = () => {
     document.title = 'weatherApp | members'
     return (
-        <React.Fragment>
+        <div className='min-vh-100'>
             <br/><br/>
             <h2 className='pt-4'>Members</h2>
             <Row className='m-0'>
@@ -87,7 +87,7 @@ const Members: React.FC = () => {
                     </Card>
                 </Col>
             </Row>
-        </React.Fragment>
+        </div>
     );
 }
 
