@@ -10,16 +10,18 @@ const Header: React.FC = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                  <Nav.Link><Link to='/members'>Members</Link></Nav.Link>
+
                   <Nav.Link><Link to='/about'>About</Link></Nav.Link>
                   <Nav.Link><Link to='/alert-history'>Alert History</Link></Nav.Link>
+                  <Nav.Link><Link to='/signin'>Sign in</Link></Nav.Link>
                   <NavDropdown title="Sensors" id="collasible-nav-dropdown">
-                      <NavDropdown.Item><Nav.Link><Link to='/temperature'>Temperature</Link></Nav.Link></NavDropdown.Item>
-                      <NavDropdown.Item><Nav.Link><Link to='/rain'>Rain</Link></Nav.Link></NavDropdown.Item>
-                      <NavDropdown.Item><Nav.Link><Link to='/wind'>Wind</Link></Nav.Link></NavDropdown.Item>
-                      <NavDropdown.Item><Nav.Link><Link to='/humidity'>Humidity</Link></Nav.Link></NavDropdown.Item>
+                      <NavDropdown.Item><Nav.Link><Link to='/dashboard/temperature'>Temperature</Link></Nav.Link></NavDropdown.Item>
+                      <NavDropdown.Item><Nav.Link><Link to='/dashboard/rain'>Rain</Link></Nav.Link></NavDropdown.Item>
+                      <NavDropdown.Item><Nav.Link><Link to='/dashboard/wind'>Wind</Link></Nav.Link></NavDropdown.Item>
+                      <NavDropdown.Item><Nav.Link><Link to='/dashboard/humidity'>Humidity</Link></Nav.Link></NavDropdown.Item>
 
                   </NavDropdown>
+                  <Nav.Link><Link to='/members'>Members</Link></Nav.Link>
               </Nav>
               <Nav>
                   <Nav.Link><Link to='/settings'>Settings</Link></Nav.Link>

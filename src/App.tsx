@@ -7,6 +7,11 @@ import Settings from "./Settings";
 import AlertHistory from "./AlertHistory";
 import About from "./About";
 import Home from "./Home";
+import './aserts/style-sheets/main.scss'
+import Signin from "./Signin";
+import SignUp from "./SignUp";
+import DashBoard from "./DashBoard";
+
 
 function App() {
     return (
@@ -25,6 +30,15 @@ function App() {
                     </Route>
                     <Route path='/alert-history'>
                         <AlertHistory/>
+                    </Route>
+                    <Route path='/signin'>
+                        <Signin/>
+                    </Route>
+                    <Route path='/signup'>
+                        <SignUp/>
+                    </Route>
+                    <Route path='/dashboard/:sensor'>
+                        <DashBoard/>
                     </Route>
                     <Route path='/'>
                         <Home/>

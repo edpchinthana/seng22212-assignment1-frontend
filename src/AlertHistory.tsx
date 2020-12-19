@@ -3,7 +3,7 @@ import React from 'react';
 const AlertHistory: React.FC = () => {
  return (
   <React.Fragment>
-        $Start$
+        <h2 className='pt-4'>Alert History</h2>
   </React.Fragment>
  );}
 
