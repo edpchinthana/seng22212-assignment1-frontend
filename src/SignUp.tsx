@@ -39,6 +39,7 @@ const SignUp: React.FC = () => {
         event.preventDefault();
         event.stopPropagation();
         //Todo: Create submit function here
+        localStorage.setItem('IS_LOGGED_IN', 'false');
         history.push('/');
 
     }

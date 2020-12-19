@@ -2,6 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import {Button, CardImg, Col, Row, Form} from "react-bootstrap";
 import image from './aserts/images/user-icon-image.svg'
 import {useHistory, Link} from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const Signin: React.FC = () => {
     document.title='weatherApp | sign in'
@@ -10,6 +11,15 @@ const Signin: React.FC = () => {
     const [password, setPassword] = useState('');
     const [isActiveUserName, setIsActiveUserName] = useState(false);
     const [isActivePassword, setIsActivePassword] = useState(false);
+    const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
+    if(getIsLoggedIn()){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You already have sign in!',
+        })
+        history.push('/');
+    }
     const handleNameOnCardChange = (text: string) => {
         setUserName(text);
         (text !== '') ? setIsActiveUserName(true) : setIsActiveUserName(false);
@@ -23,6 +33,7 @@ const Signin: React.FC = () => {
         event.preventDefault();
         event.stopPropagation();
         //Todo: Create submit function here
+        localStorage.setItem('IS_LOGGED_IN', 'true');
         history.push('/');
 
     }
