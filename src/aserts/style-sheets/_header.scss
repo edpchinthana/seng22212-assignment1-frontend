@@ -1,0 +1,11 @@
+.p-header-area {
+  z-index: 100;
+
+  .links {
+    color: lightgray;
+
+    &:hover {
+      color: white;
+    }
+  }
+}

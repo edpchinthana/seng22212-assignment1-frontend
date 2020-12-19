@@ -4,6 +4,7 @@ import image from "./aserts/images/user-icon-image.svg";
 import {useHistory, Link} from "react-router-dom";
 
 const SignUp: React.FC = () => {
+    document.title='weatherApp | sign up'
     const history = useHistory();
     const [fullName, setFullName] = useState('');
     const [userName, setUserName] = useState('');
@@ -43,6 +44,7 @@ const SignUp: React.FC = () => {
     }
     return (
         <div className="px-2 py-3 px-md-3 py-md-5">
+            <br/><br/>
             <Form className="p-form" onSubmit={handleONSubmit}>
                 <h2>Sign up</h2>
                 <Row>
