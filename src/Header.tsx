@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const Header: React.FC = () => {
- return (
+    const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
+
+
+    return (
   <React.Fragment>
-      <Navbar className='p-header-area' collapseOnSelect expand="lg" bg="dark" variant="dark" style={{position:'fixed', width: '100%'}}>
-          <Navbar.Brand><Link to='/' className='links'>Weather App</Link></Navbar.Brand>
+      { !getIsLoggedIn() &&
+      (<Navbar className='p-header-area' collapseOnSelect expand="lg" bg="dark" variant="dark" style={{position:'fixed', width: '100%'}}>
+              <Navbar.Brand><Link to='/' className='links'>Monitor</Link></Navbar.Brand>
+              <Nav.Link><Link to='/signin' className='links'>Sign in</Link></Nav.Link>
+
+              <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+          </Navbar>
+      )
+      }
+
+      { getIsLoggedIn() &&
+          (<Navbar className='p-header-area' collapseOnSelect expand="lg" bg="dark" variant="dark" style={{position:'fixed', width: '100%'}}>
+          <Navbar.Brand><Link to='/' className='links'>Monitor</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
@@ -28,6 +42,8 @@ const Header: React.FC = () => {
               </Nav>
           </Navbar.Collapse>
       </Navbar>
+          )
+      }
   </React.Fragment>
  );}
 

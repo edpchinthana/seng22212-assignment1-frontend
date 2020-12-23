@@ -34,8 +34,10 @@ const Signin: React.FC = () => {
         event.preventDefault();
         event.stopPropagation();
         //Todo: Create submit function here
-        localStorage.setItem('IS_LOGGED_IN', 'true');
-        history.push('/');
+        if (userName === "Padma" && password === "1234") {
+            localStorage.setItem('IS_LOGGED_IN', 'true');
+            history.push('/');
+        }
 
     }
     return (
