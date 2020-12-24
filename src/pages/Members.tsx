@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Row, Card} from "react-bootstrap";
+import {Col, Row, Card, Container} from "react-bootstrap";
 import Pasindu from '../aserts/images/Pasindu.png'
 import Padma from '../aserts/images/Padma.png'
 import Maleesha from '../aserts/images/Maleesha.png'
@@ -10,7 +10,7 @@ import Hansika from '../aserts/images/Hansika.png'
 const Members: React.FC = () => {
     document.title = 'weatherApp | members'
     return (
-        <div className='min-vh-100'>
+        <Container className='min-vh-100'>
             <br/><br/>
             <h2 className='pt-4'>Members</h2>
             <Row className='m-0'>
@@ -87,7 +87,7 @@ const Members: React.FC = () => {
                     </Card>
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 }
 
