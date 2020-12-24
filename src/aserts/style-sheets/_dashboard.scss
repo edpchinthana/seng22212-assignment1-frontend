@@ -4,18 +4,29 @@
   .p-dashboard-line {
     i {
       float: left;
-      font-size: 2.7em;
+      font-size: 2.5em;
+      margin-top: 10px;
+      margin-right: 5px;
     }
 
-    span {
+    select {
       font-size: 1.7em;
       float: left;
       padding-left: 20px;
+      margin-top: 10px;
     }
 
     p {
       font-size: 2.2em;
       font-weight: 500;
+    }
+    input{
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+    span{
+      font-size: 1.7em;
+      padding-top: 10px;
     }
   }
 }
