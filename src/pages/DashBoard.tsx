@@ -32,6 +32,18 @@ const DashBoard: React.FC = () => {
         value: number
     }
 
+    let categoryList;
+
+    const componentDidMount = () => {
+        const apiUrl = 'https://api-server-t2h37jtwmq-uc.a.run.app/api/category';
+        fetch(apiUrl)
+            .then((response) => console.log(response.body) )
+    }
+
+    componentDidMount();
+
+
+
     //Todo: add json data into this constants.
     const temperature: record[] = [{time: 0, value: 34}, {time: 2, value: 36}, {time: 4, value: 28}, {
         time: 6,
