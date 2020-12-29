@@ -16,7 +16,7 @@ const DashBoard: React.FC = () => {
     const [endDate, setEndDate]=useState(new Date().toISOString().slice(0, 10));
     const onChangeStartHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setStartDate(e.target.value);};
     const onChangeEndHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setEndDate(e.target.value);};
-    const [sensorData, setSensorData]=useState<any>(null);
+    const [sensorData, setSensorData]=useState<any>({labels: [], datasets: [], options:[]});
     const [lastRead, setLastRead]=useState<any>('');
     const [sensorId, setSensorId]= useState<any>('0cbf24d4-0105-4719-a56a-4e6c3cc4def1');
     const [sensorSet, setSensorSet]= useState<sensorMeta[]>([]);
@@ -69,8 +69,11 @@ const DashBoard: React.FC = () => {
             };
             setSensorData(data);
             setLastRead(val);
-            // console.log(sensorData);
+            console.log(data);
         })
+        console.log(sensorData);
+
+
     }, [startDate, endDate, sensorId])
 
     return (
