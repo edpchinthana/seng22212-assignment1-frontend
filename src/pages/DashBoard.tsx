@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Line} from "react-chartjs-2";
 import {
     useParams
@@ -10,8 +10,6 @@ const DashBoard: React.FC = () => {
     document.title = 'weatherApp | Dashboard'
     let {sensor}: any = useParams();
     let icon = (sensor === 'temperature') ? "feather-thermometer" : (sensor === "rain") ? "feather-cloud-rain" : (sensor === 'wind') ? "feather-wind" : "feather-cloud";
-    // let dropdown = "Outdoor temperature";
-    let sensorSet = ['Temperature', 'rain', 'humidity'];
 
     let day = new Date(Date.now() - 86400000*20);
     const [startDate, setStartDate]=useState(day.toISOString().slice(0, 10))
@@ -19,79 +17,61 @@ const DashBoard: React.FC = () => {
     const onChangeStartHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setStartDate(e.target.value);}
     const onChangeEndHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setEndDate(e.target.value);}
 
-    type record = {
-        time: number,
-        value: number
+    type sensorRecode = {
+        capturedDate: string
+        dataValue: number
+        id: string
+        sensorId: string
+        threshold: number
+        type: string
+        unit: string
     }
 
-    let categoryList;
+    let sensorId='0cbf24d4-0105-4719-a56a-4e6c3cc4def1';//TODO give selected sensor id
 
-    let sensorId='0cbf24d4-0105-4719-a56a-4e6c3cc4def1';
+    const getSensorSet = async ()=>{
+        const r= await API.GET(`/data?sensorId=${sensorId}&from=${startDate}&to=${endDate}`);
+        console.log(r)
+        return r;
+    }
 
+    let sensorSet = ['Temperature', 'rain', 'humidity'];
+
+    let fetchedDataSet: sensorRecode[];
     const getRecord = async ()=>{
         const r= await API.GET(`/data?sensorId=${sensorId}&from=${startDate}&to=${endDate}`);
         console.log(r)
-        // this.setState({categoryList:r})
+        fetchedDataSet=r;
+        return r
     }
-    // getRecord()
+    const [sensorData, setSensorData]=useState<any>(null);
+    const [lastRead, setLastRead]=useState<any>('');
 
+    useEffect(()=>{
+        getRecord().then(()=>{
+            let val= fetchedDataSet[fetchedDataSet.length - 1].dataValue;
 
+            let data = {
+                // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
+                labels:  fetchedDataSet.map((recode)=>recode.capturedDate),
 
-
-
-    //Todo: add json data into this constants.
-    const temperature: record[] = [{time: 0, value: 34}, {time: 2, value: 36}, {time: 4, value: 28}, {
-        time: 6,
-        value: 30
-    }, {time: 8, value: 28}, {time: 10, value: 27}, {time: 12, value: 30}, {time: 14, value: 28}, {
-        time: 16,
-        value: 28
-    }, {time: 18, value: 27}, {time: 20, value: 28}, {time: 22, value: 27}];
-    const rain: record[] = [{time: 0, value: 22}, {time: 2, value: 27}, {time: 4, value: 23}, {
-        time: 6,
-        value: 24
-    }, {time: 8, value: 22}, {time: 10, value: 24}, {time: 12, value: 30}, {time: 14, value: 32}, {
-        time: 16,
-        value: 30
-    }, {time: 18, value: 27}, {time: 20, value: 26}, {time: 22, value: 25}];
-    const wind: record[] = [{time: 0, value: 34}, {time: 2, value: 36}, {time: 4, value: 44}, {
-        time: 6,
-        value: 34
-    }, {time: 8, value: 58}, {time: 10, value: 45}, {time: 12, value: 34}, {time: 14, value: 34}, {
-        time: 16,
-        value: 68
-    }, {time: 18, value: 65}, {time: 20, value: 58}, {time: 22, value: 45}];
-    const humanity: record[] = [{time: 0, value: 34}, {time: 2, value: 36}, {time: 4, value: 44}, {
-        time: 6,
-        value: 34
-    }, {time: 8, value: 38}, {time: 10, value: 35}, {time: 12, value: 20}, {time: 14, value: 17}, {
-        time: 16,
-        value: 18
-    }, {time: 18, value: 15}, {time: 20, value: 28}, {time: 22, value: 25}];
-
-
-    const dType = (sensor === 'wind') ? wind : (sensor === 'temperature') ? temperature : (sensor === 'rain') ? rain : humanity;
-
-    const val: number = dType[dType.length - 1].value;
-
-
-    const data = {
-        labels: dType.slice(Math.max(dType.length - 10, 1)).map((record: record) => record.time.toFixed(2) + 'h'),
-        datasets: [
-            {
-                label: sensor,
-                data: dType.slice(Math.max(dType.length - 10, 1)).map((record: record) => record.value),
-                fill: false,
-                borderColor: (sensor === 'wind') ? '#0d8c1a' : (sensor === 'temperature') ? '#ac1010' : (sensor === 'rain') ? '#0824b3' : '#13caaf'
-            }
-        ],
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-        }
-    };
-
-
+                datasets: [
+                    {
+                        label: sensor,
+                        data: fetchedDataSet.map((recode)=>recode.dataValue),
+                        fill: false,
+                        borderColor: (sensor === 'wind') ? '#0d8c1a' : (sensor === 'temperature') ? '#ac1010' : (sensor === 'rain') ? '#0824b3' : '#13caaf'
+                    }
+                ],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            };
+            setSensorData(data);
+            setLastRead(val);
+        })
+    }, [startDate, endDate])
 
     return (
         <Container className='dashboard min-vh-100'>
@@ -116,9 +96,9 @@ const DashBoard: React.FC = () => {
                             <input className='float-left' type="date" id="end-date" name="end_date" onChange={onChangeEndHandle} placeholder="" value={endDate? endDate: ""}/>
                         </Col>
                     </Row>
-                    <p>{val}</p>
+                    <p>{lastRead}</p>
                 </div>
-                <Line data={data}/>
+                <Line data={sensorData}/>
             </Container>
             <br/><br/>
         </Container>

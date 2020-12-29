@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {makeEventKey} from "react-bootstrap/SelectableContext";
 
 const Header: React.FC = () => {
     const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
     const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);;
     console.log(sensorCategories)
-    const[dropdown, setDropdown] = useState(sensorCategories[0])
+    const[dropdown, setDropdown] = useState( "Temperature");
+    // const[dropdown, setDropdown] = useState(sensorCategories[0] || "Temperature");
 
 
     return (
