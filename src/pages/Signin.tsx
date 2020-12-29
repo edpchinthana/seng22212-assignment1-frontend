@@ -3,6 +3,7 @@ import {Button, CardImg, Col, Row, Form} from "react-bootstrap";
 import image from '../aserts/images/user-icon-image.svg'
 import {useHistory, Link} from "react-router-dom";
 import Swal from 'sweetalert2';
+import {API} from "../data-fetch/RestAPITest";
 
 const Signin: React.FC = () => {
     document.title = 'weatherApp | sign in'
@@ -33,9 +34,20 @@ const Signin: React.FC = () => {
     const handleONSubmit = (event: FormEvent) => {
         event.preventDefault();
         event.stopPropagation();
+
+        // const getSensorCategories = async ()=>{
+        //     const sensorCategories= await API.GET(`/category`);
+        //     console.log(sensorCategories)
+        //     return sensorCategories;
+        // }
+        //TODO put fetched data into sensors variable.
+        const sensors = ["Temperature", "Rain", "Wind", "Humidity"]
+
         //Todo: Create submit function here
+
         if (userName === "Padma" && password === "1234") {
             localStorage.setItem('IS_LOGGED_IN', 'true');
+            localStorage.setItem('SensorCategories',JSON.stringify(sensors))
             history.push('/');
         }
 
