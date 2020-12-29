@@ -11,6 +11,7 @@ const Signin: React.FC = () => {
     const [password, setPassword] = useState('');
     const [isActiveUserName, setIsActiveUserName] = useState(false);
     const [isActivePassword, setIsActivePassword] = useState(false);
+    const [show, setShow] = useState(false);
     const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
     if (getIsLoggedIn()) {
         Swal.fire({
@@ -33,11 +34,30 @@ const Signin: React.FC = () => {
     const handleONSubmit = (event: FormEvent) => {
         event.preventDefault();
         event.stopPropagation();
+
+        // const getSensorCategories = async ()=>{
+        //     const sensorCategories= await API.GET(`/category`);
+        //     console.log(sensorCategories)
+        //     return sensorCategories;
+        // }
+        //TODO put fetched data into sensors variable.
+        const sensors = ["Temperature", "Rain", "Wind", "Humidity"]
+
         //Todo: Create submit function here
+
         if (userName === "Padma" && password === "1234") {
             localStorage.setItem('IS_LOGGED_IN', 'true');
+            localStorage.setItem('SensorCategories',JSON.stringify(sensors))
             history.push('/');
+        }else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Username or password is not correct!',
+
+            })
         }
+
 
     }
     return (
@@ -53,21 +73,29 @@ const Signin: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={userName}
+                            <input type="text" value={userName} required
                                    onChange={(e) => handleNameOnCardChange(e.target.value)}/>
                             <label className={isActiveUserName ? "Active" : ""} htmlFor="username"> Username
                             </label>
+
+
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={password}
+                            <input type={show?"text":"password"} value={password} required
                                    onChange={(e) => handlePasswordChange(e.target.value)}/>
                             <label className={isActivePassword ? "Active" : ""} htmlFor="password">Password
                             </label>
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <i className={show?"feather-eye": "feather-eye-off"}/>&nbsp;&nbsp;
+                        <span style={{textDecoration:'underline', cursor:'pointer'}}  onClick={()=> setShow(!show)}>{show? "Hide password":"Show Password" }</span>
                     </Col>
                 </Row>
                 <Row>
