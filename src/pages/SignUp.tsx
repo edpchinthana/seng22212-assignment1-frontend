@@ -14,6 +14,7 @@ const SignUp: React.FC = () => {
     const [isActiveUserName, setIsActiveUserName] = useState(false);
     const [isActivePassword, setIsActivePassword] = useState(false);
     const [isActiveEmail, setIsActiveEmail] = useState(false);
+    const [show, setShow] = useState(false);
 
     const handleFullNameOnCardChange = (text: string) => {
         setFullName(text);
@@ -56,7 +57,7 @@ const SignUp: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={fullName}
+                            <input type="text" value={fullName} required
                                    onChange={(e) => handleFullNameOnCardChange(e.target.value)}/>
                             <label className={isActiveFullName ? "Active" : ""} htmlFor="fullName"> Full name
                             </label>
@@ -66,7 +67,7 @@ const SignUp: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={userName}
+                            <input type="text" value={userName} required
                                    onChange={(e) => handleNameOnCardChange(e.target.value)}/>
                             <label className={isActiveUserName ? "Active" : ""} htmlFor="username"> Username
                             </label>
@@ -76,7 +77,7 @@ const SignUp: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={email}
+                            <input type="email" value={email} required
                                    onChange={(e) => handleEmailChange(e.target.value)}/>
                             <label className={isActiveEmail ? "Active" : ""} htmlFor="email">Email
                             </label>
@@ -86,11 +87,17 @@ const SignUp: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={password}
+                            <input type={show?"text":"password"} value={password} required
                                    onChange={(e) => handlePasswordChange(e.target.value)}/>
                             <label className={isActivePassword ? "Active" : ""} htmlFor="password">Password
                             </label>
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <i className={show?"feather-eye": "feather-eye-off"}/>&nbsp;&nbsp;
+                        <span style={{textDecoration:'underline', cursor:'pointer'}}  onClick={()=> setShow(!show)}>{show? "Hide password":"Show Password" }</span>
                     </Col>
                 </Row>
                 <Row>

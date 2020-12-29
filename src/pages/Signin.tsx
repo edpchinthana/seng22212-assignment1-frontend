@@ -3,7 +3,6 @@ import {Button, CardImg, Col, Row, Form} from "react-bootstrap";
 import image from '../aserts/images/user-icon-image.svg'
 import {useHistory, Link} from "react-router-dom";
 import Swal from 'sweetalert2';
-import {API} from "../data-fetch/RestAPITest";
 
 const Signin: React.FC = () => {
     document.title = 'weatherApp | sign in'
@@ -12,6 +11,7 @@ const Signin: React.FC = () => {
     const [password, setPassword] = useState('');
     const [isActiveUserName, setIsActiveUserName] = useState(false);
     const [isActivePassword, setIsActivePassword] = useState(false);
+    const [show, setShow] = useState(false);
     const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
     if (getIsLoggedIn()) {
         Swal.fire({
@@ -49,7 +49,15 @@ const Signin: React.FC = () => {
             localStorage.setItem('IS_LOGGED_IN', 'true');
             localStorage.setItem('SensorCategories',JSON.stringify(sensors))
             history.push('/');
+        }else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Username or password is not correct!',
+
+            })
         }
+
 
     }
     return (
@@ -65,21 +73,29 @@ const Signin: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={userName}
+                            <input type="text" value={userName} required
                                    onChange={(e) => handleNameOnCardChange(e.target.value)}/>
                             <label className={isActiveUserName ? "Active" : ""} htmlFor="username"> Username
                             </label>
+
+
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type="text" value={password}
+                            <input type={show?"text":"password"} value={password} required
                                    onChange={(e) => handlePasswordChange(e.target.value)}/>
                             <label className={isActivePassword ? "Active" : ""} htmlFor="password">Password
                             </label>
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <i className={show?"feather-eye": "feather-eye-off"}/>&nbsp;&nbsp;
+                        <span style={{textDecoration:'underline', cursor:'pointer'}}  onClick={()=> setShow(!show)}>{show? "Hide password":"Show Password" }</span>
                     </Col>
                 </Row>
                 <Row>
