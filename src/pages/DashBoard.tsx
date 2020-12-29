@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Line} from "react-chartjs-2";
 import {
     useParams
@@ -19,7 +19,7 @@ const DashBoard: React.FC = () => {
     const [sensorData, setSensorData]=useState<any>(null);
     const [lastRead, setLastRead]=useState<any>('');
     const [sensorId, setSensorId]= useState<any>('0cbf24d4-0105-4719-a56a-4e6c3cc4def1');
-    const [sensorSet, setSensorSet]= useState<string[]>([]);
+    const [sensorSet, setSensorSet]= useState<sensorMeta[]>([]);
 
     let fetchedSensorSet: sensorMeta[];
     const getSensorSet = async ()=>{
@@ -31,7 +31,7 @@ const DashBoard: React.FC = () => {
 
     useEffect(()=>{
         getSensorSet().then(()=>{
-            let sensors= fetchedSensorSet.map((sen:sensorMeta)=>sen.title );
+            let sensors= fetchedSensorSet.map((sen:sensorMeta)=>sen);
             setSensorSet(sensors);
         })
     },[sensor])
@@ -46,31 +46,32 @@ const DashBoard: React.FC = () => {
     }
 
 
-    // useEffect(()=>{
-    //     getRecord().then(()=>{
-    //         let val= fetchedDataSet[fetchedDataSet.length - 1].dataValue;
-    //
-    //         let data = {
-    //             // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
-    //             labels:  fetchedDataSet.map((recode)=>recode.capturedDate),
-    //
-    //             datasets: [
-    //                 {
-    //                     label: sensor,
-    //                     data: fetchedDataSet.map((recode)=>recode.dataValue),
-    //                     fill: false,
-    //                     borderColor: (sensor === 'wind') ? '#0d8c1a' : (sensor === 'temperature') ? '#ac1010' : (sensor === 'rain') ? '#0824b3' : '#13caaf'
-    //                 }
-    //             ],
-    //             options: {
-    //                 responsive: true,
-    //                 maintainAspectRatio: false,
-    //             }
-    //         };
-    //         setSensorData(data);
-    //         setLastRead(val);
-    //     })
-    // }, [startDate, endDate])
+    useEffect(()=>{
+        getRecord().then(()=>{
+            let val= fetchedDataSet[fetchedDataSet.length - 1].dataValue;
+
+            let data = {
+                // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
+                labels:  fetchedDataSet.map((recode)=>recode.capturedDate),
+
+                datasets: [
+                    {
+                        label: sensor,
+                        data: fetchedDataSet.map((recode)=>recode.dataValue),
+                        fill: false,
+                        borderColor: (sensor === 'wind') ? '#0d8c1a' : (sensor === 'temperature') ? '#ac1010' : (sensor === 'rain') ? '#0824b3' : '#13caaf'
+                    }
+                ],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            };
+            setSensorData(data);
+            setLastRead(val);
+            // console.log(sensorData);
+        })
+    }, [startDate, endDate, sensorId])
 
     return (
         <Container className='dashboard min-vh-100'>
@@ -83,9 +84,9 @@ const DashBoard: React.FC = () => {
                         <Col xs={12} sm={12} md={4}>
                             <i className={icon}/>
                             <select name="sensors" id="sensors"
-                            onChange={()=>console.log("CCCCCChangge")}
+                            onChange={(e:ChangeEvent<HTMLSelectElement>)=>setSensorId(e.target.value)}
                             >
-                                {sensorSet.map((value: string) => <option value={value}>{value}</option>)}
+                                {sensorSet.map((value: sensorMeta) => <option value={value.id}>{value.title}</option>)}
                             </select>
                         </Col>
                         <Col xs={12} sm={6} md={4}>
