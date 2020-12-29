@@ -11,6 +11,12 @@ const DashBoard: React.FC = () => {
     let icon = (sensor === 'temperature') ? "feather-thermometer" : (sensor === "rain") ? "feather-cloud-rain" : (sensor === 'wind') ? "feather-wind" : "feather-cloud";
     // let dropdown = "Outdoor temperature";
     let sensorSet = ['Temperature', 'rain', 'humidity'];
+
+    let day = new Date(Date.now() - 86400000*20);
+    const [startDate, setStartDate]=useState(day.toISOString().slice(0, 10))
+    const [endDate, setEndDate]=useState(new Date().toISOString().slice(0, 10))
+    const onChangeStartHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setStartDate(e.target.value);}
+    const onChangeEndHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setEndDate(e.target.value);}
     //
     // const renderIcon = (val: number) => {
     //     switch (sensor) {
@@ -34,13 +40,13 @@ const DashBoard: React.FC = () => {
 
     let categoryList;
 
-    const componentDidMount = () => {
-        const apiUrl = 'https://api-server-t2h37jtwmq-uc.a.run.app/api/category';
-        fetch(apiUrl)
-            .then((response) => console.log(response.body) )
-    }
-
-    componentDidMount();
+    // const componentDidMount = () => {
+    //     const apiUrl = 'https://api-server-t2h37jtwmq-uc.a.run.app/api/category';
+    //     fetch(apiUrl)
+    //         .then((response) => console.log(response.body) )
+    // }
+    //
+    // componentDidMount();
 
 
 
@@ -92,12 +98,6 @@ const DashBoard: React.FC = () => {
         }
     };
 
-    const [startDate, setStartDate]=useState(new Date().toISOString().slice(0, 10))
-    const [endDate, setEndDate]=useState(new Date().toISOString().slice(0, 10))
-
-    const onChangeHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStartDate(e.target.value);
-    }
 
 
     return (
@@ -116,12 +116,11 @@ const DashBoard: React.FC = () => {
                         </Col>
                         <Col xs={12} sm={6} md={4}>
                             <span className='float-left'>From:- </span>
-                            <input className='float-left' type="date" id="start-date" name="start_date" onChange={onChangeHandle}
-                                   placeholder=""    value={startDate? startDate: ''}/>
+                            <input className='float-left' type="date" id="start-date" name="start_date" onChange={onChangeStartHandle} placeholder=""    value={startDate? startDate: ''}/>
                         </Col>
                         <Col xs={12} sm={6} md={4}>
                             <span className='float-left'> To:- </span>
-                            <input className='float-left' type="date" id="end-date" name="end_date"/>
+                            <input className='float-left' type="date" id="end-date" name="end_date" onChange={onChangeEndHandle} placeholder="" value={endDate? endDate: ""}/>
                         </Col>
                     </Row>
                     <p>{val}</p>
