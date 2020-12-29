@@ -4,6 +4,7 @@ import {
     useParams
 } from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
+import {API} from "../data-fetch/RestAPITest";
 
 const DashBoard: React.FC = () => {
     document.title = 'weatherApp | Dashboard'
@@ -17,22 +18,7 @@ const DashBoard: React.FC = () => {
     const [endDate, setEndDate]=useState(new Date().toISOString().slice(0, 10))
     const onChangeStartHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setStartDate(e.target.value);}
     const onChangeEndHandle =  (e: React.ChangeEvent<HTMLInputElement>) => {setEndDate(e.target.value);}
-    //
-    // const renderIcon = (val: number) => {
-    //     switch (sensor) {
-    //         case :
-    //                 icon ="feather-thermometer";
-    //         case 'rain':
-    //                 icon ="feather-cloud-rain";
-    //         case 'wind':
-    //                 icon=;
-    //         case 'humidity':
-    //
-    //         default:
-    //                 icon="feather-wind";
-    //
-    //     }
-    // // }
+
     type record = {
         time: number,
         value: number
@@ -40,13 +26,16 @@ const DashBoard: React.FC = () => {
 
     let categoryList;
 
-    // const componentDidMount = () => {
-    //     const apiUrl = 'https://api-server-t2h37jtwmq-uc.a.run.app/api/category';
-    //     fetch(apiUrl)
-    //         .then((response) => console.log(response.body) )
-    // }
-    //
-    // componentDidMount();
+    let sensorId='0cbf24d4-0105-4719-a56a-4e6c3cc4def1';
+
+    const getRecord = async ()=>{
+        const r= await API.GET(`/data?sensorId=${sensorId}&from=${startDate}&to=${endDate}`);
+        console.log(r)
+        // this.setState({categoryList:r})
+    }
+    // getRecord()
+
+
 
 
 
@@ -79,9 +68,13 @@ const DashBoard: React.FC = () => {
         time: 16,
         value: 18
     }, {time: 18, value: 15}, {time: 20, value: 28}, {time: 22, value: 25}];
+
+
     const dType = (sensor === 'wind') ? wind : (sensor === 'temperature') ? temperature : (sensor === 'rain') ? rain : humanity;
 
     const val: number = dType[dType.length - 1].value;
+
+
     const data = {
         labels: dType.slice(Math.max(dType.length - 10, 1)).map((record: record) => record.time.toFixed(2) + 'h'),
         datasets: [
