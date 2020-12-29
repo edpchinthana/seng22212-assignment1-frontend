@@ -6,8 +6,8 @@ const Header: React.FC = () => {
     const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
     const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);;
     console.log(sensorCategories)
-    // const[dropdown, setDropdown] = useState( "Temperature");
-    const[dropdown, setDropdown] = useState(sensorCategories[0] || "Temperature");
+    const[dropdown, setDropdown] = useState( "Temperature");
+    // const[dropdown, setDropdown] = useState(sensorCategories[0] || "Temperature");
 
     const showHeader =() => {
         if(!getIsLoggedIn()){
