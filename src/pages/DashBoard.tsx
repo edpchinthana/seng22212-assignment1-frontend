@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {API} from "../data-fetch/RestAPITest";
 import {sensorMeta, sensorRecode} from "../types/types";
+import Swal from "sweetalert2";
 
 const DashBoard: React.FC = () => {
     document.title = 'weatherApp | Dashboard'
@@ -36,8 +37,11 @@ const DashBoard: React.FC = () => {
             let sensors = fetchedSensorSet.map((sen: sensorMeta) => sen);
             setSensorSet(sensors);
         })
+
+        if(sensor!=="temperature"){Swal.fire('Sorry. Those type of sensors does not have setup.  ' +
+            'Temperature sensors only have been set up.');}
+        else{Swal.fire('Please select the sensor and time range as you wish');}
     }, [sensor])
-    console.log(sensorSet)
 
     let fetchedDataSet: sensorRecode[];
     const getRecord = async () => {
@@ -51,7 +55,8 @@ const DashBoard: React.FC = () => {
             let val = fetchedDataSet[fetchedDataSet.length - 1].dataValue;
             let data = {
                 // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
-                labels: fetchedDataSet.map((recode) => recode.capturedDate),
+                labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h` ),
+                // labels: fetchedDataSet.map((recode) => recode.capturedDate),
                 datasets: [
                     {
                         label: sensor,
@@ -76,33 +81,39 @@ const DashBoard: React.FC = () => {
         <Container className='dashboard min-vh-100'>
             <br/><br/>
             <h2 className='pt-4 text-left'>Dashboard</h2>
-            <br/>
-            <Container>
-                <div className='p-dashboard-line'>
-                    <Row>
-                        <Col xs={12} sm={12} md={4}>
-                            <i className={icon}/>
-                            <select name="sensors" id="sensors"
-                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorId(e.target.value)}>
-                                <option value=" ">Select Sensor</option>
-                                {sensorSet.map((value: sensorMeta) => <option value={value.id}>{value.title}</option>)}
-                            </select>
-                        </Col>
-                        <Col xs={12} sm={6} md={4}>
-                            <span className='float-left'>From:- </span>
-                            <input className='float-left' type="date" id="start-date" name="start_date"
-                                   onChange={onChangeStartHandle} placeholder="" value={startDate ? startDate : ''}/>
-                        </Col>
-                        <Col xs={12} sm={6} md={4}>
-                            <span className='float-left'> To:- </span>
-                            <input className='float-left' type="date" id="end-date" name="end_date"
-                                   onChange={onChangeEndHandle} placeholder="" value={endDate ? endDate : ""}/>
-                        </Col>
-                    </Row>
-                    <p>{lastRead}</p>
+            <div className='p-dashboard-line'>
+                <Row>
+                    <Col xs={12} sm={12} md={4}>
+                        <i className={icon}/>
+                        <select name="sensors" id="sensors"
+                                onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorId(e.target.value)}>
+                            <option value=" ">Select Sensor</option>
+                            {sensorSet.map((value: sensorMeta) => <option value={value.id}>{value.title}</option>)}
+                        </select>
+                    </Col>
+                    <Col xs={12} sm={6} md={4}>
+                        <span className='float-left'>From:- </span>
+                        <input className='float-left' type="date" id="start-date" name="start_date"
+                               onChange={onChangeStartHandle}
+                               placeholder="" value={startDate ? startDate : ''}/>
+                    </Col>
+                    <Col xs={12} sm={6} md={4}>
+                        <span className='float-left'> To:- </span>
+                        <input className='float-left' type="date" id="end-date" name="end_date"
+                               onChange={onChangeEndHandle}
+                               placeholder="" value={endDate ? endDate : ''}/>
+                    </Col>
+                </Row>
+                <br/>
+                <div className='float-right pr-4'>
+                    <span className='float-left'>Last read value - </span>
+                    <span className='float-left'>{lastRead}</span>
                 </div>
-                <Line data={sensorData}/>
-            </Container>
+            </div>
+            <div className='d-none d-md-block d-lg-none'><Line data={sensorData} width={100} height={50}/></div>
+            <div className='d-none d-lg-block'><Line data={sensorData} width={100} height={35}/></div>
+            <div className='d-none d-sm-block d-md-none'><Line data={sensorData} width={100} height={70}/></div>
+            <div className='d-sm-none'><Line data={sensorData} width={90} height={100}/></div>
             <br/><br/>
         </Container>
     );
