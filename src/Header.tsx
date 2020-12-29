@@ -37,7 +37,7 @@ const Header: React.FC = () => {
                       >
                       {
                           sensorCategories.map((sensorCategory:string)=>
-                              <NavDropdown.Item><Nav.Link><Link to={`/dashboard/${sensorCategory}`}>{sensorCategory}</Link></Nav.Link></NavDropdown.Item>)
+                              <NavDropdown.Item><Nav.Link><Link to={`/dashboard/${sensorCategory.toLowerCase()}`}>{sensorCategory}</Link></Nav.Link></NavDropdown.Item>)
                       }
 
                   </NavDropdown>
