@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
-import {Col, Button, Form} from "react-bootstrap";
+import {Col, Button, Form, Row} from "react-bootstrap";
 import {ISensor,} from "../types/types";
 import Swal from "sweetalert2";
 
@@ -77,21 +77,51 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
                 </Form.Row>
                 <Form.Row>
                     <Form.Group className="form-group-dev">
-                        <Form.Label className="text-left label-text">Sensor Id</Form.Label>
+                        <Form.Label className=" label-text ">Sensor Id</Form.Label>
                         <Form.Control className="form-input" required type="text" placeholder="" value={id ? id : ''}
                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setId(e.target.value)}/>
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
+
                 <Form.Row>
-                    <Form.Label className="text-left Sensor-label">Sensor</Form.Label>
+                    <Form.Group className="form-group-dev">
+                        <Form.Label className="text-left label-text">Threshold</Form.Label>
+                        <Row>
+                            <Col xs={8} sm={8}>
+                                <Form.Control className="form-input" required type="range" placeholder="" value={threshold ? threshold : ''}
+                                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setThreshold(Number(e.target.value))}/>
+                            </Col>
+                            <Col xs={4} sm={4}>
+                                <Form.Control className="form-input" required type="text" placeholder="" value={threshold ? threshold : ''}
+                                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setThreshold(Number(e.target.value))}/>
+                            </Col>
+                        </Row>
+
+
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                    <Form.Label className="text-left Sensor-label">Sensor type</Form.Label>
                     <Form.Group controlId="SensorSelectID" className="form-group-dev">
+                        <br/>
                         <select name="sensors" id="sensors"
                                 onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}>
                             {
                                 sensorCategories.map((sensorCategory: string) =>
                                     <option value={sensorCategory}>{sensorCategory}</option>)}
                         </select>
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                    <Form.Group className="form-group-dev">
+                        <Form.Label className="text-left label-text">Sensor unit</Form.Label>
+                        <Form.Control className="form-input" required type="text" placeholder="" value={unit ? unit : ''}
+                                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUnit(e.target.value)}/>
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
                 <Button onClick={event => handleUpdate(event)} size='sm' variant='primary'
