@@ -1,0 +1,28 @@
+
+.sensor {
+  label {
+    font-size: 1em;
+  }
+
+  i {
+    cursor: pointer;
+    visibility: hidden;
+    font-size: 1.2em;
+  }
+
+  .feather-edit {
+    color: #ff811a;
+  }
+
+  .feather-trash-2 {
+    color: darkred;
+  }
+
+  &:hover {
+    background-color: lightgray;
+
+    i {
+      visibility: visible;
+    }
+  }
+}

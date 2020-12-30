@@ -1,6 +1,7 @@
 .dashboard {
   z-index: 10;
   font-size: 1em;
+
   .p-dashboard-line {
     i {
       float: left;
@@ -20,18 +21,20 @@
       font-size: 1.7em;
       font-weight: 500;
     }
-    input{
+
+    input {
       font-size: 1.1em;
       margin-top: 10px;
     }
-    span{
+
+    span {
       font-size: 1.4em;
       padding-top: 10px;
     }
   }
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
   .dashboard {
     font-size: 0.6em;
   }

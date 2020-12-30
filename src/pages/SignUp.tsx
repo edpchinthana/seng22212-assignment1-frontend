@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
 import {Button, CardImg, Col, Form, Row} from "react-bootstrap";
 import image from "../aserts/images/user-icon-image.svg";
-import {useHistory, Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const SignUp: React.FC = () => {
     document.title = 'weatherApp | sign up'
@@ -39,7 +39,7 @@ const SignUp: React.FC = () => {
     const handleONSubmit = (event: FormEvent) => {
         event.preventDefault();
         event.stopPropagation();
-        //Todo: Create submit function here
+        //Todo: Create sign up function here (firebase auth)
         localStorage.setItem('IS_LOGGED_IN', 'true');
         history.push('/');
 
@@ -87,7 +87,7 @@ const SignUp: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type={show?"text":"password"} value={password} required
+                            <input type={show ? "text" : "password"} value={password} required
                                    onChange={(e) => handlePasswordChange(e.target.value)}/>
                             <label className={isActivePassword ? "Active" : ""} htmlFor="password">Password
                             </label>
@@ -96,8 +96,9 @@ const SignUp: React.FC = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <i className={show?"feather-eye": "feather-eye-off"}/>&nbsp;&nbsp;
-                        <span style={{textDecoration:'underline', cursor:'pointer'}}  onClick={()=> setShow(!show)}>{show? "Hide password":"Show Password" }</span>
+                        <i className={show ? "feather-eye" : "feather-eye-off"}/>&nbsp;&nbsp;
+                        <span style={{textDecoration: 'underline', cursor: 'pointer'}}
+                              onClick={() => setShow(!show)}>{show ? "Hide password" : "Show Password"}</span>
                     </Col>
                 </Row>
                 <Row>

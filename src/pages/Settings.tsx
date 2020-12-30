@@ -1,11 +1,19 @@
-import React from 'react';
-import {Button, Col} from "react-bootstrap";
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import {Button, Container,} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
+import {ISensor} from "../types/types";
+import {API} from "../data-fetch/RestAPITest";
+import Sensor from "../commponents/Sensor";
+import SensorForm from "../commponents/SensorForm";
 
 const Settings: React.FC = () => {
     document.title = 'weatherApp | settings';
     const history = useHistory();
+    const [sensorType, setSensorType] = useState('');
+    const [sensorSet, setSensorSet] = useState<ISensor[]>([]);
+    const [isAdd, setIsAdd] = useState(false);
+    const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
 
     const handleSignOut = () => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -44,13 +52,53 @@ const Settings: React.FC = () => {
         })
     }
 
+    let fetchedSensorSet: ISensor[];
+    const getSensorSet = async () => {
+        const r = await API.GET(`/sensor?sensorType=${sensorType.toUpperCase()}`);
+        fetchedSensorSet = r;
+        return r;
+    }
+
+    useEffect(() => {
+        getSensorSet().then(() => {
+            let sensors = fetchedSensorSet.map((sen: ISensor) => sen);
+            setSensorSet(sensors);
+        })
+    }, [sensorType])
+
     return (
-        <div  className='min-vh-100'>
+        <Container className='min-vh-100'>
             <br/><br/><br/>
             <h2>Settings</h2>
             <br/>
+            <div><h3>Sensor manage</h3>
+
+                <select name="sensors" id="sensors"
+                        onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorType(e.target.value)}>
+                    <option value=" ">Select Sensor category</option>
+                    {
+                        sensorCategories.map((sensorCategory: string, index:number) =>
+                            <option key={index} value={sensorCategory}>{sensorCategory}</option>)}
+                </select>
+                {
+                    sensorSet.map((sensor: ISensor, index: number) => <Sensor sensor={sensor} num={index + 1}
+                                                                              key={index}/>)
+                }
+
+            </div>
+            <div><h3 onClick={() => setIsAdd(true)} style={{cursor: 'pointer'}}><i className="feather-plus-circle"/> Add
+                new sensor</h3>
+                {
+                    isAdd &&
+                    <SensorForm formTitle={"Add Sensor"} sensor={{title: '', id: '', threshold: 0, type: '', unit: ''}}
+                                setIsUpdatable={setIsAdd}/>
+                }
+            </div>
+
+            <div><h3>Sign out</h3></div>
             <Button className='p-button mt-3' onClick={handleSignOut}>Sign out</Button>
-        </div>
+            <br/><br/>
+        </Container>
     );
 }
 

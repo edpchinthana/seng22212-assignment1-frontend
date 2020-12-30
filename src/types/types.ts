@@ -8,8 +8,16 @@ export interface sensorRecode {
     unit: string
 }
 
-export interface sensorMeta {
+export interface SensorMeta {
     id: string
     title: string
     type: string
+}
+
+export interface ISensor {
+    id: string
+    title: string
+    threshold: number
+    type: string
+    unit: string
 }

@@ -17,6 +17,7 @@ const Home: React.FC = () => {
                     <img
                         className="d-block w-100"
                         src={measure}
+                        alt={"temperature"}
                     />
                     <Carousel.Caption>
                         <h3>Daily Temperature</h3>
@@ -26,6 +27,7 @@ const Home: React.FC = () => {
                     <img
                         className="d-block w-100"
                         src={thunder}
+                        alt={"rain"}
                     />
                     <Carousel.Caption>
                         <h3>Daily Rain records</h3>
@@ -35,6 +37,7 @@ const Home: React.FC = () => {
                     <img
                         className="d-block w-100"
                         src={wind}
+                        alt={"wind"}
                     />
                     <Carousel.Caption>
                         <h3>Daily wind records</h3>
@@ -44,6 +47,7 @@ const Home: React.FC = () => {
                     <img
                         className="d-block w-100"
                         src={mist}
+                        alt={"mist"}
                     />
                     <Carousel.Caption>
                         <h3>Daily humidity records</h3>

@@ -3,7 +3,7 @@ import {Line} from "react-chartjs-2";
 import {useParams} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {API} from "../data-fetch/RestAPITest";
-import {sensorMeta, sensorRecode} from "../types/types";
+import {SensorMeta, sensorRecode} from "../types/types";
 import Swal from "sweetalert2";
 
 const DashBoard: React.FC = () => {
@@ -11,7 +11,7 @@ const DashBoard: React.FC = () => {
     let {sensor}: any = useParams();
     let icon = (sensor === 'temperature') ? "feather-thermometer" : (sensor === "rain") ? "feather-cloud-rain" :
         (sensor === 'wind') ? "feather-wind" : "feather-cloud";
-    let day = new Date(Date.now() - 86400000 * 20);
+    let day = new Date(Date.now() - 86400000 * 40);
     const [startDate, setStartDate] = useState(day.toISOString().slice(0, 10));
     const [endDate, setEndDate] = useState(new Date().toISOString().slice(0, 10));
     const onChangeStartHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,9 +23,9 @@ const DashBoard: React.FC = () => {
     const [sensorData, setSensorData] = useState<any>({labels: [], datasets: [], options: []});
     const [lastRead, setLastRead] = useState<any>('');
     const [sensorId, setSensorId] = useState<any>('');
-    const [sensorSet, setSensorSet] = useState<sensorMeta[]>([]);
+    const [sensorSet, setSensorSet] = useState<SensorMeta[]>([]);
 
-    let fetchedSensorSet: sensorMeta[];
+    let fetchedSensorSet: SensorMeta[];
     const getSensorSet = async () => {
         const r = await API.GET(`/sensor?sensorType=${sensor.toUpperCase()}`);
         fetchedSensorSet = r;
@@ -34,13 +34,16 @@ const DashBoard: React.FC = () => {
 
     useEffect(() => {
         getSensorSet().then(() => {
-            let sensors = fetchedSensorSet.map((sen: sensorMeta) => sen);
+            let sensors = fetchedSensorSet.map((sen: SensorMeta) => sen);
             setSensorSet(sensors);
         })
 
-        if(sensor!=="temperature"){Swal.fire('Sorry. Those type of sensors does not have setup.  ' +
-            'Temperature sensors only have been set up.');}
-        else{Swal.fire('Please select the sensor and time range as you wish');}
+        if (sensor !== "temperature") {
+            Swal.fire('Sorry. Those type of sensors does not have setup.  ' +
+                'Temperature sensors only have been set up.');
+        } else {
+            Swal.fire('Please select the sensor and time range as you wish');
+        }
     }, [sensor])
 
     let fetchedDataSet: sensorRecode[];
@@ -54,9 +57,7 @@ const DashBoard: React.FC = () => {
         getRecord().then(() => {
             let val = fetchedDataSet[fetchedDataSet.length - 1].dataValue;
             let data = {
-                // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
-                labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h` ),
-                // labels: fetchedDataSet.map((recode) => recode.capturedDate),
+                labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h`),
                 datasets: [
                     {
                         label: sensor,
@@ -88,7 +89,7 @@ const DashBoard: React.FC = () => {
                         <select name="sensors" id="sensors"
                                 onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorId(e.target.value)}>
                             <option value=" ">Select Sensor</option>
-                            {sensorSet.map((value: sensorMeta) => <option value={value.id}>{value.title}</option>)}
+                            {sensorSet.map((value: SensorMeta, index:number) => <option key={index} value={value.id}>{value.title}</option>)}
                         </select>
                     </Col>
                     <Col xs={12} sm={6} md={4}>
