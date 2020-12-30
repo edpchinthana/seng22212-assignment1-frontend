@@ -38,9 +38,12 @@ const DashBoard: React.FC = () => {
             setSensorSet(sensors);
         })
 
-        if(sensor!=="temperature"){Swal.fire('Sorry. Those type of sensors does not have setup.  ' +
-            'Temperature sensors only have been set up.');}
-        else{Swal.fire('Please select the sensor and time range as you wish');}
+        if (sensor !== "temperature") {
+            Swal.fire('Sorry. Those type of sensors does not have setup.  ' +
+                'Temperature sensors only have been set up.');
+        } else {
+            Swal.fire('Please select the sensor and time range as you wish');
+        }
     }, [sensor])
 
     let fetchedDataSet: sensorRecode[];
@@ -55,7 +58,7 @@ const DashBoard: React.FC = () => {
             let val = fetchedDataSet[fetchedDataSet.length - 1].dataValue;
             let data = {
                 // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
-                labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h` ),
+                labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h`),
                 // labels: fetchedDataSet.map((recode) => recode.capturedDate),
                 datasets: [
                     {

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from "./Header";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Switch} from "react-router-dom";
 import Members from "./pages/Members";
 import Settings from "./pages/Settings";
 import AlertHistory from "./pages/AlertHistory";
@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp";
 import DashBoard from "./pages/DashBoard";
 import {GuardedRoute, GuardProvider} from "react-router-guards";
 import Footer from "./Footer";
+
 const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
 
 
@@ -45,7 +46,7 @@ function App() {
                         <GuardedRoute path='/alert-history' meta={{auth: true}}>
                             <AlertHistory/>
                         </GuardedRoute>
-                        <GuardedRoute path='/signin'meta={{auth: false}}>
+                        <GuardedRoute path='/signin' meta={{auth: false}}>
                             <Signin/>
                         </GuardedRoute>
                         <GuardedRoute path='/signup'>

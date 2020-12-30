@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
-import {Col, Button, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import {ISensor,} from "../types/types";
 import Swal from "sweetalert2";
 
@@ -15,10 +15,9 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
     const [title, setTitle] = useState(sensor.title);
     const [threshold, setThreshold] = useState(sensor.threshold);
     const [type, setType] = useState(sensor.type);
-    const [unit, setUnit] =useState(sensor.unit)
+    const [unit, setUnit] = useState(sensor.unit)
     const [validated, setValidated] = useState(false);
     const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
-
 
     const handleUpdate = (event: FormEvent) => {
         const form = event.currentTarget;
@@ -38,7 +37,13 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     Swal.fire('Saved!', '', 'success');
-                    //TODO: create update function here
+
+                    if (formTitle.split(' ')[0] === 'Add') {
+                        //TODO: add sensor function here.
+
+                    } else {
+                        //TODO: create sensor update function here
+                    }
 
                     props.setIsUpdatable(false)
                 } else if (result.isDenied) {
@@ -55,10 +60,11 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
 
 
     return (
-        <div className="my-4 p-3 " style={{maxWidth:'400px', border:'1px solid gray', margin:"auto", borderRadius: '10px'}}>
+        <div className="my-4 p-3 "
+             style={{maxWidth: '400px', border: '1px solid gray', margin: "auto", borderRadius: '10px'}}>
             <Form.Row>
                 <Col className="pl-1 mb-3">
-                    <strong style={{textDecoration:'underline'}}>{formTitle}</strong>
+                    <strong style={{textDecoration: 'underline'}}>{formTitle}</strong>
 
                     <i className='feather-x-circle text-dark float-right' onClick={() => props.setIsUpdatable(false)}/>
                 </Col>
@@ -88,11 +94,13 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
                         <Form.Label className="text-left label-text">Threshold</Form.Label>
                         <Row>
                             <Col xs={8} sm={8}>
-                                <Form.Control className="form-input" required type="range" placeholder="" value={threshold ? threshold : ''}
+                                <Form.Control className="form-input" required type="range" placeholder=""
+                                              value={threshold ? threshold : ''}
                                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setThreshold(Number(e.target.value))}/>
                             </Col>
                             <Col xs={4} sm={4}>
-                                <Form.Control className="form-input" required type="text" placeholder="" value={threshold ? threshold : ''}
+                                <Form.Control className="form-input" required type="text" placeholder=""
+                                              value={threshold ? threshold : ''}
                                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setThreshold(Number(e.target.value))}/>
                             </Col>
                         </Row>
@@ -118,12 +126,14 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
                 <Form.Row>
                     <Form.Group className="form-group-dev">
                         <Form.Label className="text-left label-text">Sensor unit</Form.Label>
-                        <Form.Control className="form-input" required type="text" placeholder="" value={unit ? unit : ''}
+                        <Form.Control className="form-input" required type="text" placeholder=""
+                                      value={unit ? unit : ''}
                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUnit(e.target.value)}/>
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
-                <Button onClick={event => handleUpdate(event)} size='sm' variant='success' style={{width:'100%', padding: '10px'}}>
+                <Button onClick={event => handleUpdate(event)} size='sm' variant='success'
+                        style={{width: '100%', padding: '10px'}}>
                     {formTitle.split(' ')[0]}
                 </Button>
             </Form>

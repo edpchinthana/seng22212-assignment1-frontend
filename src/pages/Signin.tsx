@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
-import {Button, CardImg, Col, Row, Form} from "react-bootstrap";
+import {Button, CardImg, Col, Form, Row} from "react-bootstrap";
 import image from '../aserts/images/user-icon-image.svg'
-import {useHistory, Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
 
 const Signin: React.FC = () => {
@@ -43,13 +43,13 @@ const Signin: React.FC = () => {
         //TODO put fetched data into sensors variable.
         const sensors = ["Temperature", "Rain", "Wind", "Humidity"]
 
-        //Todo: Create submit function here
+        //TODO: Create sign in function here (Firebase auth).
 
         if (userName === "Padma" && password === "1234") {
             localStorage.setItem('IS_LOGGED_IN', 'true');
-            localStorage.setItem('SensorCategories',JSON.stringify(sensors))
+            localStorage.setItem('SensorCategories', JSON.stringify(sensors))
             history.push('/');
-        }else {
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -85,7 +85,7 @@ const Signin: React.FC = () => {
                 <Row>
                     <Col>
                         <div className="float-label my-2">
-                            <input type={show?"text":"password"} value={password} required
+                            <input type={show ? "text" : "password"} value={password} required
                                    onChange={(e) => handlePasswordChange(e.target.value)}/>
                             <label className={isActivePassword ? "Active" : ""} htmlFor="password">Password
                             </label>
@@ -94,8 +94,9 @@ const Signin: React.FC = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <i className={show?"feather-eye": "feather-eye-off"}/>&nbsp;&nbsp;
-                        <span style={{textDecoration:'underline', cursor:'pointer'}}  onClick={()=> setShow(!show)}>{show? "Hide password":"Show Password" }</span>
+                        <i className={show ? "feather-eye" : "feather-eye-off"}/>&nbsp;&nbsp;
+                        <span style={{textDecoration: 'underline', cursor: 'pointer'}}
+                              onClick={() => setShow(!show)}>{show ? "Hide password" : "Show Password"}</span>
                     </Col>
                 </Row>
                 <Row>

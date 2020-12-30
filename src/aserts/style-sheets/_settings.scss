@@ -1,17 +1,20 @@
 
-.sensor{
-  label{
-    font-size:1em;
+.sensor {
+  label {
+    font-size: 1em;
   }
-  i{
+
+  i {
     cursor: pointer;
     visibility: hidden;
     font-size: 1.2em;
   }
-  .feather-edit{
-    color:#ff811a;
+
+  .feather-edit {
+    color: #ff811a;
   }
-  .feather-trash-2{
+
+  .feather-trash-2 {
     color: darkred;
   }
 
