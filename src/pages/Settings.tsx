@@ -2,14 +2,15 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Button, Col, Container, Nav, NavDropdown} from "react-bootstrap";
 import {Link, useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
-import {sensorMeta} from "../types/types";
+import {SensorMeta} from "../types/types";
 import {API} from "../data-fetch/RestAPITest";
+import Sensor from "./Sensor";
 
 const Settings: React.FC = () => {
     document.title = 'weatherApp | settings';
     const history = useHistory();
     const [sensorType, setSensorType]= useState('');
-    const [sensorSet, setSensorSet] = useState<sensorMeta[]>([]);
+    const [sensorSet, setSensorSet] = useState<SensorMeta[]>([]);
 
 
     const handleSignOut = () => {
@@ -49,7 +50,7 @@ const Settings: React.FC = () => {
         })
     }
 
-    let fetchedSensorSet: sensorMeta[];
+    let fetchedSensorSet: SensorMeta[];
     const getSensorSet = async () => {
         const r = await API.GET(`/sensor?sensorType=${sensorType.toUpperCase()}`);
         fetchedSensorSet = r;
@@ -58,13 +59,12 @@ const Settings: React.FC = () => {
 
     useEffect(() => {
         getSensorSet().then(() => {
-            let sensors = fetchedSensorSet.map((sen: sensorMeta) => sen);
+            let sensors = fetchedSensorSet.map((sen: SensorMeta) => sen);
             setSensorSet(sensors);
         })
     }, [sensorType])
 
     const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
-    const[selectedSensorCategory,setSelectedSensorCategory]=useState('');
 
     console.log(sensorSet)
 
@@ -84,7 +84,8 @@ const Settings: React.FC = () => {
                           <option value={sensorCategory}>{sensorCategory}</option>)}
                 </select>
                 {
-                    sensorSet.map((sensor:sensorMeta)=> <div>{sensor.title}sssd</div>)
+                    sensorSet.map((sensor:SensorMeta, index: number)=> <Sensor sensor={sensor} num={index+1} key={index}/>)
+                    // sensorSet.map((sensor:SensorMeta)=> <div>{sensor.title}sssd</div>)
                 }
 
 

@@ -8,7 +8,7 @@ export interface sensorRecode {
     unit: string
 }
 
-export interface sensorMeta {
+export interface SensorMeta {
     id: string
     title: string
     type: string

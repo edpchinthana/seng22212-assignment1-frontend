@@ -3,7 +3,7 @@ import {Line} from "react-chartjs-2";
 import {useParams} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import {API} from "../data-fetch/RestAPITest";
-import {sensorMeta, sensorRecode} from "../types/types";
+import {SensorMeta, sensorRecode} from "../types/types";
 import Swal from "sweetalert2";
 
 const DashBoard: React.FC = () => {
@@ -23,9 +23,9 @@ const DashBoard: React.FC = () => {
     const [sensorData, setSensorData] = useState<any>({labels: [], datasets: [], options: []});
     const [lastRead, setLastRead] = useState<any>('');
     const [sensorId, setSensorId] = useState<any>('');
-    const [sensorSet, setSensorSet] = useState<sensorMeta[]>([]);
+    const [sensorSet, setSensorSet] = useState<SensorMeta[]>([]);
 
-    let fetchedSensorSet: sensorMeta[];
+    let fetchedSensorSet: SensorMeta[];
     const getSensorSet = async () => {
         const r = await API.GET(`/sensor?sensorType=${sensor.toUpperCase()}`);
         fetchedSensorSet = r;
@@ -34,7 +34,7 @@ const DashBoard: React.FC = () => {
 
     useEffect(() => {
         getSensorSet().then(() => {
-            let sensors = fetchedSensorSet.map((sen: sensorMeta) => sen);
+            let sensors = fetchedSensorSet.map((sen: SensorMeta) => sen);
             setSensorSet(sensors);
         })
 
@@ -88,7 +88,7 @@ const DashBoard: React.FC = () => {
                         <select name="sensors" id="sensors"
                                 onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorId(e.target.value)}>
                             <option value=" ">Select Sensor</option>
-                            {sensorSet.map((value: sensorMeta) => <option value={value.id}>{value.title}</option>)}
+                            {sensorSet.map((value: SensorMeta) => <option value={value.id}>{value.title}</option>)}
                         </select>
                     </Col>
                     <Col xs={12} sm={6} md={4}>
