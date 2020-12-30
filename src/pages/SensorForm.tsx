@@ -1,19 +1,21 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {Col, Button, Form} from "react-bootstrap";
-import {SensorMeta} from "../types/types";
+import {ISensor,} from "../types/types";
 import Swal from "sweetalert2";
 
 type UpdateSensorProps = {
-    sensor: SensorMeta;
+    sensor: ISensor;
     formTitle: string;
     setIsUpdatable: (arg: boolean) => void
 }
 
 const SensorForm: React.FC<UpdateSensorProps> = (props) => {
     const {sensor, formTitle} = props;
-    const [title, setTitle] = useState(sensor.title);
     const [id, setId] = useState(sensor.id);
+    const [title, setTitle] = useState(sensor.title);
+    const [threshold, setThreshold] = useState(sensor.threshold);
     const [type, setType] = useState(sensor.type);
+    const [unit, setUnit] =useState(sensor.unit)
     const [validated, setValidated] = useState(false);
     const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
 

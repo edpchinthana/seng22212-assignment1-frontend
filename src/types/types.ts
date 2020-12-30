@@ -13,3 +13,11 @@ export interface SensorMeta {
     title: string
     type: string
 }
+
+export interface ISensor {
+    id: string
+    title: string
+    threshold: number
+    type: string
+    unit: string
+}

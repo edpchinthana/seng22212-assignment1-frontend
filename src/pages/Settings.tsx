@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Button, Col, Container, Nav, NavDropdown} from "react-bootstrap";
-import {Link, useHistory} from "react-router-dom";
+import {Button, Container,} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
-import {SensorMeta} from "../types/types";
+import {ISensor} from "../types/types";
 import {API} from "../data-fetch/RestAPITest";
 import Sensor from "./Sensor";
 import SensorForm from "./SensorForm";
@@ -10,9 +10,9 @@ import SensorForm from "./SensorForm";
 const Settings: React.FC = () => {
     document.title = 'weatherApp | settings';
     const history = useHistory();
-    const [sensorType, setSensorType]= useState('');
-    const [sensorSet, setSensorSet] = useState<SensorMeta[]>([]);
-    const [isAdd, setIsAdd] =useState(false)
+    const [sensorType, setSensorType] = useState('');
+    const [sensorSet, setSensorSet] = useState<ISensor[]>([]);
+    const [isAdd, setIsAdd] = useState(false)
 
 
     const handleSignOut = () => {
@@ -52,7 +52,7 @@ const Settings: React.FC = () => {
         })
     }
 
-    let fetchedSensorSet: SensorMeta[];
+    let fetchedSensorSet: ISensor[];
     const getSensorSet = async () => {
         const r = await API.GET(`/sensor?sensorType=${sensorType.toUpperCase()}`);
         fetchedSensorSet = r;
@@ -61,7 +61,7 @@ const Settings: React.FC = () => {
 
     useEffect(() => {
         getSensorSet().then(() => {
-            let sensors = fetchedSensorSet.map((sen: SensorMeta) => sen);
+            let sensors = fetchedSensorSet.map((sen: ISensor) => sen);
             setSensorSet(sensors);
         })
     }, [sensorType])
@@ -71,7 +71,7 @@ const Settings: React.FC = () => {
     console.log(sensorSet)
 
     return (
-        <Container  className='min-vh-100'>
+        <Container className='min-vh-100'>
             <br/><br/><br/>
             <h2>Settings</h2>
             <br/>
@@ -81,17 +81,21 @@ const Settings: React.FC = () => {
                         onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorType(e.target.value)}>
                     <option value=" ">Select Sensor category</option>
                     {
-                        sensorCategories.map((sensorCategory:string)=>
-                          <option value={sensorCategory}>{sensorCategory}</option>)}
+                        sensorCategories.map((sensorCategory: string) =>
+                            <option value={sensorCategory}>{sensorCategory}</option>)}
                 </select>
                 {
-                    sensorSet.map((sensor:SensorMeta, index: number)=> <Sensor sensor={sensor} num={index+1} key={index}/>)
+                    sensorSet.map((sensor: ISensor, index: number) => <Sensor sensor={sensor} num={index + 1}
+                                                                              key={index}/>)
                 }
 
             </div>
-            <div><h3 onClick={()=> setIsAdd(true)} style={{cursor:'pointer'}}><i className="feather-plus-circle"/> Add new sensor</h3>
+            <div><h3 onClick={() => setIsAdd(true)} style={{cursor: 'pointer'}}><i className="feather-plus-circle"/> Add
+                new sensor</h3>
                 {
-                    isAdd &&  <SensorForm formTitle={"Add Sensor"} sensor={{title:'', id:'', type:''}} setIsUpdatable={setIsAdd}/>
+                    isAdd &&
+                    <SensorForm formTitle={"Add Sensor"} sensor={{title: '', id: '', threshold: 0, type: '', unit: ''}}
+                                setIsUpdatable={setIsAdd}/>
                 }
             </div>
 
