@@ -101,6 +101,7 @@ const Settings: React.FC = () => {
 
             <div><h3>Sign out</h3></div>
             <Button className='p-button mt-3' onClick={handleSignOut}>Sign out</Button>
+            <br/><br/>
         </Container>
     );
 }

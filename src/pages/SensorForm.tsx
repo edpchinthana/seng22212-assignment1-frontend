@@ -55,16 +55,15 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
 
 
     return (
-        <div className="update-Sensor mt-2 mb-5 pb-2 pt-5">
+        <div className="my-4 p-3 " style={{maxWidth:'400px', border:'1px solid gray', margin:"auto", borderRadius: '10px'}}>
             <Form.Row>
-                <Col className="text-left pl-1 mb-3">
-                    <span>{formTitle}</span>
-                </Col>
-                <Col className="text-right">
-                    <i className='feather-x-circle text-dark text-right' onClick={() => props.setIsUpdatable(false)}/>
+                <Col className="pl-1 mb-3">
+                    <strong style={{textDecoration:'underline'}}>{formTitle}</strong>
+
+                    <i className='feather-x-circle text-dark float-right' onClick={() => props.setIsUpdatable(false)}/>
                 </Col>
             </Form.Row>
-            <Form noValidate validated={validated} className="pl-5">
+            <Form noValidate validated={validated}>
 
                 <Form.Row>
                     <Form.Group className="form-group-dev">
@@ -124,8 +123,7 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
-                <Button onClick={event => handleUpdate(event)} size='sm' variant='primary'
-                        className='float-right'>
+                <Button onClick={event => handleUpdate(event)} size='sm' variant='success' style={{width:'100%', padding: '10px'}}>
                     {formTitle.split(' ')[0]}
                 </Button>
             </Form>
