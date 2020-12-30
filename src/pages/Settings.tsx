@@ -4,16 +4,16 @@ import {useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
 import {ISensor} from "../types/types";
 import {API} from "../data-fetch/RestAPITest";
-import Sensor from "./Sensor";
-import SensorForm from "./SensorForm";
+import Sensor from "../commponents/Sensor";
+import SensorForm from "../commponents/SensorForm";
 
 const Settings: React.FC = () => {
     document.title = 'weatherApp | settings';
     const history = useHistory();
     const [sensorType, setSensorType] = useState('');
     const [sensorSet, setSensorSet] = useState<ISensor[]>([]);
-    const [isAdd, setIsAdd] = useState(false)
-
+    const [isAdd, setIsAdd] = useState(false);
+    const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
 
     const handleSignOut = () => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -65,10 +65,6 @@ const Settings: React.FC = () => {
             setSensorSet(sensors);
         })
     }, [sensorType])
-
-    const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
-
-    console.log(sensorSet)
 
     return (
         <Container className='min-vh-100'>

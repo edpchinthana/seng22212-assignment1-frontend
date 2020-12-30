@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
     ;
     console.log(sensorCategories)
-    const[dropdown, setDropdown] = useState( "Temperature");
+    const dropdown: string =  "Temperature";
     // const[dropdown, setDropdown] = useState(sensorCategories[0] || "Temperature");
 
     const showHeader =() => {
@@ -46,9 +46,7 @@ const Header: React.FC = () => {
                 </Navbar>
             )
         }
-
     }
-
 
     return (
   <React.Fragment>

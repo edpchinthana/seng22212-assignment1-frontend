@@ -57,9 +57,7 @@ const DashBoard: React.FC = () => {
         getRecord().then(() => {
             let val = fetchedDataSet[fetchedDataSet.length - 1].dataValue;
             let data = {
-                // labels: dType.map((record: record) => record.time.toFixed(2) + 'h'),
                 labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h`),
-                // labels: fetchedDataSet.map((recode) => recode.capturedDate),
                 datasets: [
                     {
                         label: sensor,

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Header from "./Header";
+import Header from "./commponents/Header";
 import {BrowserRouter, Switch} from "react-router-dom";
 import Members from "./pages/Members";
 import Settings from "./pages/Settings";
@@ -12,7 +12,7 @@ import Signin from "./pages/Signin";
 import SignUp from "./pages/SignUp";
 import DashBoard from "./pages/DashBoard";
 import {GuardedRoute, GuardProvider} from "react-router-guards";
-import Footer from "./Footer";
+import Footer from "./commponents/Footer";
 
 const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
 

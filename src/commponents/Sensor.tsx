@@ -12,11 +12,8 @@ type SensorProps = {
 const Sensor: React.FC<SensorProps> = (props) => {
     const {sensor, num} = props;
     const [isUpdatable, setIsUpdatable] = useState(false)
-
-    const [isEditClick, setIsEditClick] = useState(false);
     const handleEditClick = () => {
         setIsUpdatable(true);
-
     }
     const onSensorDelete = () => {
         Swal.fire({
@@ -48,8 +45,8 @@ const Sensor: React.FC<SensorProps> = (props) => {
                         className='mb-2 float-left text-left'>{num}. {sensor.title} - {sensor.threshold} -{sensor.unit} </label>
                 </Col>
                 <Col xs={3} className='text-right'>
-                    {!isEditClick && <i className='feather-edit mr-3' onClick={() => handleEditClick()}/>}
-                    {!isEditClick && <i className='feather-trash-2' onClick={() => onSensorDelete()}/>}
+                     <i className='feather-edit mr-3' onClick={() => handleEditClick()}/>
+                     <i className='feather-trash-2' onClick={() => onSensorDelete()}/>
                 </Col>
             </Row>
             <Row>
