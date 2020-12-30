@@ -44,28 +44,37 @@ const Settings: React.FC = () => {
         })
     }
 
-    return (
-        <div  className='min-vh-100'>
-            <br/><br/><br/>
-            <h2>Settings</h2>
-            <br/>
-
-            <div className="form-group">
-                <h1 style={{fontSize: '25px', padding: '5px 10px', textAlign: 'left'}}>Change Threshold Value</h1>
+    return (        
+        <div>
+          <br/><br/>
+          <h2 className='pt-4'>Settings</h2>
+  
+          <div className="form-group">
+            <h1 style={{fontSize: '25px', padding: '5px 10px', textAlign: 'left'}}>Change Threshold Value</h1>
+          </div>
+          <br/>
+          <select style={{paddingBottom: '0px', marginBottom: '20px', marginLeft: '10px', width: '200px', height: '38px', float: 'left'}}>
+            <option selected>Temperature</option>
+            <option>Humidity</option>
+            <option>Pressure </option>
+          </select>
+  
+          <form>
+            <div className="form-row">
+              <div className="col-md-3 col-xl-2"><label className="col-form-label">Temp Sensor 001</label></div>
+              <div className="col-md-2"><input className="form-control" type="text" placeholder="Threshold Value" /></div>
             </div>
-            <br/>
-            <select style={{paddingBottom: '0px', marginBottom: '20px', marginLeft: '10px', width: '200px', height: '38px', float: 'left'}}>
-                <option selected>Temperature</option>
-                <option>Humidity</option>
-                <option>Pressure </option>
-            </select>
+          </form>
 
-
-
-
-            <Button className='p-button mt-3' onClick={handleSignOut}>Sign out</Button>
+          
+          
+  
+  
+          
+          
+  
         </div>
-    );
+      );
 }
 
 export default Settings;
