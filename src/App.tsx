@@ -1,7 +1,11 @@
 import React from 'react';
+import Firebase from './FirebaseApp';
+import ProtectedRoutes from './ui/ProtectedRoutes';
+import {Route, Redirect} from 'react-router-dom';
+import {Switch} from 'react-router';
 import './App.css';
+import {BrowserRouter} from "react-router-dom";
 import Header from "./components/Header";
-import {BrowserRouter, Switch} from "react-router-dom";
 import Members from "./components/pages/Members";
 import Settings from "./components/pages/Settings";
 import AlertHistory from "./components/pages/AlertHistory";
@@ -11,9 +15,58 @@ import './assets/style-sheets/main.scss'
 import Signin from "./components/pages/Signin";
 import SignUp from "./components/pages/SignUp";
 import DashBoard from "./components/pages/DashBoard";
-import {GuardedRoute, GuardProvider} from "react-router-guards";
 import Footer from "./components/Footer";
 
+class App extends React.Component<{}, {[key:string]: any}>{
+
+    constructor(props: any) {
+      super(props);
+      this.state={
+        user:null,
+        loading: true
+      }
+  
+    }
+  
+    componentDidMount() {
+      this.setState({loading:true});
+      try{
+        Firebase.auth().onAuthStateChanged(user => {
+          if(user){
+            this.setState({user:user});
+          }else{
+           this.setState({user:null});
+          }
+          setTimeout(()=>this.setState({loading:false}), 0);
+        })
+      }catch (e) {
+        alert(e);
+        setTimeout(()=>this.setState({loading:false}), 0);
+      }
+    }
+  
+  
+    render() {
+      return <div>
+        {this.state.loading?
+            <div><h1>Loading</h1></div>
+            :this.state.user?
+                <ProtectedRoutes/>
+                :
+                <Switch>
+                  <Route exact path="/login" component={Login} />
+                  <Redirect to={'/login'}/>
+                </Switch>
+  
+        }
+      </div>;
+    }
+  }
+  
+  
+  export default App;
+
+/*
 const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
 
 
@@ -67,3 +120,4 @@ function App() {
 }
 
 export default App;
+*/
