@@ -1,9 +1,9 @@
 import React from 'react';
 import {Carousel} from "react-bootstrap";
-import wind from '../aserts/images/wind.jpg';
-import mist from '../aserts/images/mist.jpg';
-import thunder from '../aserts/images/thunder.jpg';
-import measure from '../aserts/images/mesure.jpg';
+import wind from '../../assets/images/wind.jpg';
+import mist from '../../assets/images/mist.jpg';
+import thunder from '../../assets/images/thunder.jpg';
+import measure from '../../assets/images/mesure.jpg';
 
 const Home: React.FC = () => {
     document.title = 'weatherApp | home'

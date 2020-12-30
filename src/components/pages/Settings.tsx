@@ -2,10 +2,10 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Button, Container,} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import Swal from 'sweetalert2';
-import {ISensor} from "../types/types";
-import {API} from "../data-fetch/RestAPITest";
-import Sensor from "../commponents/Sensor";
-import SensorForm from "../commponents/SensorForm";
+import {ISensor} from "../../types/types";
+import {API} from "../../data-fetch/RestAPITest";
+import Sensor from "../Sensor";
+import SensorForm from "../SensorForm";
 
 const Settings: React.FC = () => {
     document.title = 'weatherApp | settings';

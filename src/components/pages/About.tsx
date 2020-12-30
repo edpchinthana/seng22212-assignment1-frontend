@@ -1,5 +1,5 @@
 import React from 'react';
-import NoName from "../data-fetch/NoName";
+import NoName from "../../data-fetch/NoName";
 
 const About: React.FC = () => {
     document.title = 'weatherApp | about'

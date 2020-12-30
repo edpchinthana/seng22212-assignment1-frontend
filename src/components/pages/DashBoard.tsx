@@ -2,8 +2,8 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Line} from "react-chartjs-2";
 import {useParams} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
-import {API} from "../data-fetch/RestAPITest";
-import {SensorMeta, sensorRecode} from "../types/types";
+import {API} from "../../data-fetch/RestAPITest";
+import {SensorMeta, sensorRecode} from "../../types/types";
 import Swal from "sweetalert2";
 
 const DashBoard: React.FC = () => {

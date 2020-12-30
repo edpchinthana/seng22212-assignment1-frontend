@@ -1,11 +1,11 @@
 import React from 'react';
 import {Card, Col, Container, Row} from "react-bootstrap";
-import Pasindu from '../aserts/images/Pasindu.png'
-import Padma from '../aserts/images/Padma.png'
-import Maleesha from '../aserts/images/Maleesha.png'
-import Githmi from '../aserts/images/Githmi.png'
-import Supuni from '../aserts/images/Hansika.png'
-import Hansika from '../aserts/images/Hansika.png'
+import Pasindu from '../../assets/images/Pasindu.png'
+import Padma from '../../assets/images/Padma.png'
+import Maleesha from '../../assets/images/Maleesha.png'
+import Githmi from '../../assets/images/Githmi.png'
+import Supuni from '../../assets/images/Hansika.png'
+import Hansika from '../../assets/images/Hansika.png'
 
 const Members: React.FC = () => {
     document.title = 'weatherApp | members'

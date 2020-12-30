@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.css';
-import Header from "./commponents/Header";
+import Header from "./components/Header";
 import {BrowserRouter, Switch} from "react-router-dom";
-import Members from "./pages/Members";
-import Settings from "./pages/Settings";
-import AlertHistory from "./pages/AlertHistory";
-import About from "./pages/About";
-import Home from "./pages/Home";
-import './aserts/style-sheets/main.scss'
-import Signin from "./pages/Signin";
-import SignUp from "./pages/SignUp";
-import DashBoard from "./pages/DashBoard";
+import Members from "./components/pages/Members";
+import Settings from "./components/pages/Settings";
+import AlertHistory from "./components/pages/AlertHistory";
+import About from "./components/pages/About";
+import Home from "./components/pages/Home";
+import './assets/style-sheets/main.scss'
+import Signin from "./components/pages/Signin";
+import SignUp from "./components/pages/SignUp";
+import DashBoard from "./components/pages/DashBoard";
 import {GuardedRoute, GuardProvider} from "react-router-guards";
-import Footer from "./commponents/Footer";
+import Footer from "./components/Footer";
 
 const getIsLoggedIn = () => localStorage.getItem('IS_LOGGED_IN') === 'true';
 
