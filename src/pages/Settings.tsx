@@ -112,7 +112,17 @@ const Settings: React.FC = () => {
                     <input className="form-control" type="text" style={{width: '200px', marginLeft: '10px'}} />
                     <button className="btn btn-primary" type="button" style={{marginTop: '10px'}}>Remove</button>
                 </form>
-
+                
+                <h1 style={{fontSize: '25px', paddingTop: '50px', paddingLeft: '10px', textAlign: 'left'}}>Edit Alert list</h1>
+                    <form>
+                        <a href="#"><label style={{paddingLeft: '10px', float: 'left'}}>View Alert list</label></a>
+                    </form>
+  
+  
+                <h1 style={{fontSize: '25px', paddingTop: '50px', paddingLeft:'10px', textAlign: 'left'}}>Log Out</h1>
+                <form>
+                    <button className="btn btn-primary" type="button" style={{marginLeft: '10px', float:'left'}}>Log Out</button>
+                </form>
 
             
   
