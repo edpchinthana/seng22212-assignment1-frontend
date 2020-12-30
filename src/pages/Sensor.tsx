@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Row, Col, Container} from "react-bootstrap";
 import {SensorMeta} from "../types/types";
 import SensorForm from "./SensorForm";
+import Swal from "sweetalert2";
 
 
 
@@ -20,7 +21,26 @@ const Sensor:React.FC<SensorProps>=(props)=>{
 
     }
     const onSensorDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
 
+                //TODO create delete function here
+
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
 
     return(
