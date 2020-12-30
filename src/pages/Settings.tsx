@@ -68,39 +68,58 @@ const Settings: React.FC = () => {
 
           <div className="form-group">
             <h1 style={{fontSize: '25px', paddingTop: '50px', paddingLeft: '10px', textAlign: 'left'}}>Add Sensor</h1>
-            <form style={{width: '1000px', marginLeft: '10px', textAlign: 'left'}}><label>Select Type:</label><select className="form-control" style={{paddingBottom: '0px', marginBottom: '20px', marginLeft: '10px', width: '200px'}}>
-                <option selected>Temperature</option>
-                <option>Humidity</option>
-                <option>Pressure </option>
-              </select>
+            <form style={{width: '1000px', marginLeft: '10px', textAlign: 'left'}}>
+                <label>Select Type:</label>
+                <select className="form-control" style={{paddingBottom: '0px', marginBottom: '20px', marginLeft: '10px', width: '200px'}}>
+                    <option selected>Temperature</option>
+                    <option>Humidity</option>
+                    <option>Pressure </option>
+                </select>
             </form>
   
             <form style={{width: '1000px', marginLeft: '10px', textAlign: 'left'}}>
-                <label>Sensor Id:</label><input className="form-control" type="text" style={{width: '200px', marginLeft: '10px'}} />
+                <label>Sensor Id:</label>
+                <input className="form-control" type="text" style={{width: '200px', marginLeft: '10px'}} />
             </form>
   
             <form style={{width: '1000px', marginLeft: '10px', textAlign: 'left'}}>
                 <label style={{marginTop: '15px'}}>Sensor Range:</label>
-              <div className="form-row">
-                <div className="col-xl-1"><label className="col-form-label">From</label></div>
-                <div className="col"><input className="form-control" type="text" style={{width: '100px'}} /></div>
-              </div>
-              <div className="form-row">
-                <div className="col-xl-1"><label className="col-form-label">To</label></div>
-                <div className="col"><input className="form-control" type="text" style={{width: '100px'}} /></div>
-              </div>
+                <div className="form-row">
+                    <div className="col-xl-1"><label className="col-form-label">From</label></div>
+                    <div className="col"><input className="form-control" type="text" style={{width: '100px'}} /></div>
+                </div>
+                <div className="form-row">
+                    <div className="col-xl-1"><label className="col-form-label">To</label></div>
+                    <div className="col"><input className="form-control" type="text" style={{width: '100px'}} /></div>
+                </div>
             </form>
   
             <div style={{float: 'left', paddingTop: '20px'}}>
-            <label style={{textAlign: 'left'}}>Default Threshold Value:</label>
-            <input type="range" style={{width: '500px', margin: '10px', marginLeft: '20px'}} />
+                <label style={{textAlign: 'left'}}>Default Threshold Value:</label>
+                <input type="range" style={{width: '500px', margin: '10px', marginLeft: '20px'}} />
             </div>
             <br/>
-  
-  
+
+            <div className="form-group">
+                <h1 style={{fontSize: '25px', paddingTop: '70px', paddingLeft: '10px', textAlign: 'left'}}>Remove Sensor</h1>
+                <form style={{width: '1000px', marginLeft: '10px', textAlign: 'left'}}><label>Select Type:</label>
+                    <select className="form-control" style={{paddingBottom: '0px', marginBottom: '20px', marginLeft: '10px', width: '200px'}}>
+                        <option selected>Temperature</option>
+                        <option>Humidity</option>
+                        <option>Pressure </option>
+                    </select>
+                    <label>Sensor Id:</label>
+                    <input className="form-control" type="text" style={{width: '200px', marginLeft: '10px'}} />
+                    <button className="btn btn-primary" type="button" style={{marginTop: '10px'}}>Remove</button>
+                </form>
+
+
             
+  
+            </div>
+              
           </div>
-          
+
         </div>
       );
 }
