@@ -33,8 +33,8 @@ const Header: React.FC = () => {
                             <Nav.Link><Link to='/signin' className='links'>Sign in</Link></Nav.Link>
                             <NavDropdown title={dropdown}  id="collasible-nav-dropdown">
                                 {
-                                    sensorCategories.map((sensorCategory:string)=>
-                                        <NavDropdown.Item><Nav.Link><Link to={`/dashboard/${sensorCategory.toLowerCase()}`}>{sensorCategory}</Link></Nav.Link></NavDropdown.Item>)
+                                    sensorCategories.map((sensorCategory:string, index:number)=>
+                                        <NavDropdown.Item><Nav.Link><Link key={index} to={`/dashboard/${sensorCategory.toLowerCase()}`}>{sensorCategory}</Link></Nav.Link></NavDropdown.Item>)
                                 }
                             </NavDropdown>
                             <Nav.Link><Link to='/members'className='links'>Members</Link></Nav.Link>

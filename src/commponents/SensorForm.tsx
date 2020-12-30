@@ -117,8 +117,8 @@ const SensorForm: React.FC<UpdateSensorProps> = (props) => {
                         <select name="sensors" id="sensors"
                                 onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}>
                             {
-                                sensorCategories.map((sensorCategory: string) =>
-                                    <option value={sensorCategory}>{sensorCategory}</option>)}
+                                sensorCategories.map((sensorCategory: string, index:number) =>
+                                    <option key={index} value={sensorCategory}>{sensorCategory}</option>)}
                         </select>
                     </Form.Group>
                 </Form.Row>

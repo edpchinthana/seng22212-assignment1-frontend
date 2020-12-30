@@ -77,8 +77,8 @@ const Settings: React.FC = () => {
                         onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorType(e.target.value)}>
                     <option value=" ">Select Sensor category</option>
                     {
-                        sensorCategories.map((sensorCategory: string) =>
-                            <option value={sensorCategory}>{sensorCategory}</option>)}
+                        sensorCategories.map((sensorCategory: string, index:number) =>
+                            <option key={index} value={sensorCategory}>{sensorCategory}</option>)}
                 </select>
                 {
                     sensorSet.map((sensor: ISensor, index: number) => <Sensor sensor={sensor} num={index + 1}

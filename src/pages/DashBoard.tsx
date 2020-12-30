@@ -11,7 +11,7 @@ const DashBoard: React.FC = () => {
     let {sensor}: any = useParams();
     let icon = (sensor === 'temperature') ? "feather-thermometer" : (sensor === "rain") ? "feather-cloud-rain" :
         (sensor === 'wind') ? "feather-wind" : "feather-cloud";
-    let day = new Date(Date.now() - 86400000 * 20);
+    let day = new Date(Date.now() - 86400000 * 40);
     const [startDate, setStartDate] = useState(day.toISOString().slice(0, 10));
     const [endDate, setEndDate] = useState(new Date().toISOString().slice(0, 10));
     const onChangeStartHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +89,7 @@ const DashBoard: React.FC = () => {
                         <select name="sensors" id="sensors"
                                 onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorId(e.target.value)}>
                             <option value=" ">Select Sensor</option>
-                            {sensorSet.map((value: SensorMeta) => <option value={value.id}>{value.title}</option>)}
+                            {sensorSet.map((value: SensorMeta, index:number) => <option key={index} value={value.id}>{value.title}</option>)}
                         </select>
                     </Col>
                     <Col xs={12} sm={6} md={4}>
