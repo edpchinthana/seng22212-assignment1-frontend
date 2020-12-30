@@ -5,12 +5,14 @@ import Swal from 'sweetalert2';
 import {SensorMeta} from "../types/types";
 import {API} from "../data-fetch/RestAPITest";
 import Sensor from "./Sensor";
+import SensorForm from "./SensorForm";
 
 const Settings: React.FC = () => {
     document.title = 'weatherApp | settings';
     const history = useHistory();
     const [sensorType, setSensorType]= useState('');
     const [sensorSet, setSensorSet] = useState<SensorMeta[]>([]);
+    const [isAdd, setIsAdd] =useState(false)
 
 
     const handleSignOut = () => {
@@ -68,13 +70,12 @@ const Settings: React.FC = () => {
 
     console.log(sensorSet)
 
-
     return (
         <Container  className='min-vh-100'>
             <br/><br/><br/>
             <h2>Settings</h2>
             <br/>
-            <div><h3>Change Threshold values</h3>
+            <div><h3>Sensor manage</h3>
 
                 <select name="sensors" id="sensors"
                         onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorType(e.target.value)}>
@@ -85,14 +86,15 @@ const Settings: React.FC = () => {
                 </select>
                 {
                     sensorSet.map((sensor:SensorMeta, index: number)=> <Sensor sensor={sensor} num={index+1} key={index}/>)
-                    // sensorSet.map((sensor:SensorMeta)=> <div>{sensor.title}sssd</div>)
                 }
 
-
-
             </div>
-            <div><h3>Add sensor</h3></div>
-            <div><h3>Remove sensor</h3></div>
+            <div><h3 onClick={()=> setIsAdd(true)} style={{cursor:'pointer'}}><i className="feather-plus-circle"/> Add new sensor</h3>
+                {
+                    isAdd &&  <SensorForm formTitle={"Add Sensor"} sensor={{title:'', id:'', type:''}} setIsUpdatable={setIsAdd}/>
+                }
+            </div>
+
             <div><h3>Sign out</h3></div>
             <Button className='p-button mt-3' onClick={handleSignOut}>Sign out</Button>
         </Container>

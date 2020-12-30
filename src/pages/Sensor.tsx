@@ -1,28 +1,24 @@
 import React, {useState} from "react";
 import {Row, Col, Container} from "react-bootstrap";
 import {SensorMeta} from "../types/types";
+import SensorForm from "./SensorForm";
 
 
 
 type SensorProps={
     sensor:SensorMeta
     num: number
-
-
 }
-
 
 const Sensor:React.FC<SensorProps>=(props)=>{
     const {sensor,num}=props;
     const [isUpdatable, setIsUpdatable]= useState(false)
 
-    const [isEditClick,setIsEditClick]=useState<boolean>(false);
+    const [isEditClick,setIsEditClick]=useState(false);
     const handleEditClick=()=>{
         setIsUpdatable(true);
 
     }
-    const [editSensorName,setEditSensorName]=useState<null | string>(sensor.title);
-
     const onSensorDelete = () => {
 
     }
@@ -37,6 +33,14 @@ const Sensor:React.FC<SensorProps>=(props)=>{
                     {!isEditClick && <i className='feather-edit mr-3' onClick={()=>handleEditClick()}/>}
                     {!isEditClick && <i className='feather-trash-2' onClick={()=>onSensorDelete()}/>}
                 </Col>
+            </Row>
+            <Row>
+                <Col>
+                    {
+                        isUpdatable &&  <SensorForm formTitle={"Update Sensor"} sensor={sensor} setIsUpdatable={setIsUpdatable}/>
+                    }
+                </Col>
+
             </Row>
         </Container>
     );
