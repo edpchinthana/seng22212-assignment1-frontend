@@ -1,8 +1,7 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {Switch} from 'react-router';
-import Dashboard from "./pages/Dashboard";
-import NavBar from "./common/NavBar";
+import Dashboard from "./pages/DashBoard";
 import AlertHistory from "./pages/AlertHistory";
 
 function ProtectedRoutes(){
@@ -11,7 +10,6 @@ function ProtectedRoutes(){
     return(
 <div id="page-top">
     <div id="wrapper">
-        <NavBar/>
         <Switch>
             <Route
                 exact

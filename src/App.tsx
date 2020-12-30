@@ -1,6 +1,6 @@
 import React from 'react';
 import Firebase from './FirebaseApp';
-import ProtectedRoutes from './ui/ProtectedRoutes';
+import ProtectedRoutes from './components/ProtectedRoutes';
 import {Route, Redirect} from 'react-router-dom';
 import {Switch} from 'react-router';
 import './App.css';
@@ -12,10 +12,8 @@ import AlertHistory from "./components/pages/AlertHistory";
 import About from "./components/pages/About";
 import Home from "./components/pages/Home";
 import './assets/style-sheets/main.scss'
-import Signin from "./components/pages/Signin";
-import SignUp from "./components/pages/SignUp";
-import DashBoard from "./components/pages/DashBoard";
 import Footer from "./components/Footer";
+import Login from './components/pages/Login';
 
 class App extends React.Component<{}, {[key:string]: any}>{
 

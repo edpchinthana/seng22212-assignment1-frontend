@@ -1,9 +1,7 @@
 import React from "react";
 import {userLogin} from "../../services/auth/auth";
 import {withRouter, RouteProps} from 'react-router';
-interface ILogin{
 
-}
 
 class Login extends React.Component<RouteProps,{[key:string]:any}>{
     constructor(props:any) {
@@ -33,7 +31,7 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
                             <div className="card-body p-0">
                                 <div className="row">
                                     <div className="col-lg-6 col-xl-6 d-none d-lg-flex">
-                                        <div className="flex-grow-1 bg-login-image"
+                                    <div className="flex-grow-1 bg-login-image"
                                              style={{background:"url(/assets/img/dogs/Monitor.png) center"}}/>
                                     </div>
                                     <div className="col-lg-6">
