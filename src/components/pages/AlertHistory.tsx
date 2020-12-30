@@ -1,10 +1,21 @@
-import { connect } from 'http2';
 import React from 'react';
+import { connect } from 'react-redux';
+import { getAlertHistory } from "../../repositories/alertHistoryRepository";
+
 
 class AlertHistory extends React.Component<any, {[key:string]:any}> {
 
     constructor(props: {}| Readonly<{}>) {
         super(props);
+    }
+
+    getAlertHistory =async () => {
+        const alertHistory = await getAlertHistory();
+        this.props.getAlertHistory();
+    }
+
+    componentDidMount() {
+        this.props.getAlertHistory();
     }
 
     render() {
@@ -27,14 +38,18 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>ID1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            <tr></tr>
+                                                {this.props.alertHistory.map((alert:any, index:number)=>{
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{alert.id}</td>
+                                                            <td>{alert.sensorData.capturedDate}</td>
+                                                            <td>{alert.cause}</td>
+                                                            <td>{alert.sensorData.threshold}</td>
+                                                            <td>{alert.sensorData.dataValue}</td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                                <tr></tr>
                                             </tbody>
                                             <tfoot>
                                             <tr>
@@ -80,7 +95,11 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
 
 }
 
-export default AlertHistory;
+const mapStateToProps = (state : any) => ({
+    alertHistory: state.alertHistory
+})
+
+export default connect(mapStateToProps, {getAlertHistory})(AlertHistory);
 
 /* const AlertHistory: React.FC = () => {
     document.title = 'weatherApp | alert history'
