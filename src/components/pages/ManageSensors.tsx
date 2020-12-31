@@ -47,20 +47,22 @@ class ManageSensors extends React.Component<any, any>{
     onAddSensorSubmit = async (event : any) => {
         event.preventDefault();
         try{
-            const sensorType = this.props.selectedCategory.type;
-            const title = event.target.elements.title.value;
-            const threshold = event.target.elements.threshold.value;
-            const unit = event.target.elements.unit.value;
+            if(this.props.selectedCategory!=null){
+                const sensorType = this.props.selectedCategory.type;
+                const title = event.target.elements.title.value;
+                const threshold = event.target.elements.threshold.value;
+                const unit = event.target.elements.unit.value;
 
-            const sensor = {
-                title : title,
-                type : sensorType,
-                threshold : threshold,
-                unit : unit
+                const sensor = {
+                    title : title,
+                    type : sensorType,
+                    threshold : threshold,
+                    unit : unit
+                }
+
+                await this.props.addSensors(sensor);
+                await this.props.getSensors(this.props.selectedCategory);
             }
-
-            await this.props.addSensors(sensor);
-            await this.props.getSensors(this.props.selectedCategory);
         }catch(e){
             alert(e);
         }
@@ -104,7 +106,7 @@ class ManageSensors extends React.Component<any, any>{
                                                         <div className="form-group"><label
                                                             htmlFor="email"><strong>Title</strong><br/></label><input
                                                             className="form-control" type="text"
-                                                            placeholder="Station 1" name="title"/></div>
+                                                            placeholder="Station 1" name="title" required/></div>
                                                     </div>
                                                 </div>
                                                 <div className="form-row">
@@ -113,13 +115,13 @@ class ManageSensors extends React.Component<any, any>{
                                                             Value</strong></label><input className="form-control"
                                                                                          type="number"
                                                                                          placeholder="45"
-                                                                                         name="threshold"/></div>
+                                                                                         name="threshold" required/></div>
                                                     </div>
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label
                                                             htmlFor="first_name"><strong>Unit</strong></label><input
                                                             className="form-control" type="text"
-                                                            placeholder="C" name="unit"/></div>
+                                                            placeholder="C" name="unit" required/></div>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -176,15 +178,17 @@ class ManageSensors extends React.Component<any, any>{
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label htmlFor="first_name"><strong>Threshold
                                                             Value</strong></label><input className="form-control"
-                                                                                         type="text"
-                                                                                         placeholder="0712656458"
-                                                                                         name="first_name"/></div>
+                                                                                         type="number"
+                                                                                         placeholder="45"
+                                                                                         name="threshold"/></div>
                                                     </div>
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label
-                                                            htmlFor="first_name"><strong>Unit</strong></label><input
+                                                            htmlFor="first_name"><strong>{this.props.selectedSensor?this.props.selectedSensor.unit:"Unit"}</strong></label><input
                                                             className="form-control" type="text"
-                                                            placeholder="0712656458" name="first_name"/></div>
+                                                            placeholder="" name="unit"
+                                                            disabled={true}
+                                                        /></div>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
