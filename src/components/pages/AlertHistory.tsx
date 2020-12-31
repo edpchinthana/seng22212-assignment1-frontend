@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getAlertHistory } from "../../repositories/alertHistoryRepository";
 
@@ -14,6 +15,15 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
         this.props.getAlertHistory();
     }
 
+    onSensorCategoryChange =async (event: any) => {
+        try{
+            const category:any = this.props.sensorCategories.filter((cat:any)=>cat.type==event);
+            await this.props.getSensors(category[0]);
+        }catch (e) {
+            alert(e);
+        }
+    }
+
     componentDidMount() {
         this.props.getAlertHistory();
     }
@@ -26,6 +36,22 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
                             <h3 className="text-dark mb-4">Alert History</h3>
                             <div className="card shadow">
                                 <div className="card-body">
+                                    <div className="row" style={{marginBottom: "30px"}}>
+                                        <div className="col" style={{marginRight: "10px"}}>
+                                            <Dropdown onSelect={(event:any)=>this.onSensorCategoryChange(event)}>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    {this.props.selectedCategory?this.props.selectedCategory.title:"Select Category"}
+
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu>
+                                                    {this.props.sensorCategories.map((category:any, index:number) => {
+                                                        return <Dropdown.Item key={category.type} eventKey={category.type}>{category.title}</Dropdown.Item>
+                                                    })}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </div>
                                     <div className="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                                         <table className="table my-0" id="dataTable">
                                             <thead>
