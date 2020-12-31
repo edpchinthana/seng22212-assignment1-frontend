@@ -8,7 +8,6 @@ import Supuni from '../../assets/images/Supuni.png'
 import Hansika from '../../assets/images/Hansika.png'
 
 const Members: React.FC = () => {
-    document.title = 'weatherApp | members'
     return (
         <Container className='min-vh-100'>
             <br/><br/>
