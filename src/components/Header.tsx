@@ -1,6 +1,7 @@
 import React from 'react';
-import {Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Button, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {signOutUser} from "../services/auth/auth";
 
 const Header: React.FC = () => {
 
@@ -20,6 +21,7 @@ const Header: React.FC = () => {
               </Nav>
               <Nav>
                   <Nav.Link><Link to='/settings'className='links'>Settings</Link></Nav.Link>
+                  <Nav.Link><Button onClick={()=> signOutUser()}>Sign out</Button></Nav.Link>
               </Nav>
           </Navbar.Collapse>
       </Navbar>

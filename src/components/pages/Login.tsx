@@ -2,8 +2,10 @@ import React from "react";
 import {userLogin} from "../../services/auth/auth";
 import {withRouter, RouteProps} from 'react-router';
 import Monitor from '../../assets/images/Monitor.png'
+import {useHistory} from "react-router-dom";
 
 class Login extends React.Component<RouteProps,{[key:string]:any}>{
+
     constructor(props:any) {
         super(props);
 
@@ -17,8 +19,8 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
     handleOnSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         try {
-            console.log("login")
-            await userLogin(this.state.email, this.state.password, this.state.stayLogged)
+            console.log("login");
+            await userLogin(this.state.email, this.state.password, this.state.stayLogged);
         } catch (e) {
             alert(e);
         }
