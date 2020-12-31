@@ -5,7 +5,6 @@ import Dashboard from "./pages/DashBoard";
 import AlertHistory from "./pages/AlertHistory";
 import Header from './Header';
 import Members from "./pages/Members";
-import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
 import ManageSubscribers from "./pages/ManageSubscribers";
 import ManageSensors from "./pages/ManageSensors";
@@ -18,10 +17,6 @@ function ProtectedRoutes() {
             <br/>
             <div id="wrapper" className="pt-5">
                 <Switch>
-                    <Route exact path="/login" render={() => (
-                        <Redirect to="/"/>
-                    )}/>
-
                     <Route
                         exact
                         path={'/alertHistory'}
@@ -43,11 +38,7 @@ function ProtectedRoutes() {
                         component={Members}/>
                     <Route
                         exact
-                        path={'/settings'}
-                        component={Settings}/>
-                    <Route
-                        exact
-                        path={"/"}
+                        path={"/dashboard"}
                         component={Dashboard}
                     />
                     <Redirect to={"/dashboard"}/>
