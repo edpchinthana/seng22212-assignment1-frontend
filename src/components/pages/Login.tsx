@@ -81,9 +81,6 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
                                                 <hr/>
                                                     <hr/>
                                             </form>
-                                            <div className="text-center"><a className="small"
-                                                                            href="forgot-password.html">Forgot
-                                                Password?</a></div>
                                         </div>
                                     </div>
                                 </div>
