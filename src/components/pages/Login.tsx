@@ -1,7 +1,7 @@
 import React from "react";
 import {userLogin} from "../../services/auth/auth";
 import {withRouter, RouteProps} from 'react-router';
-
+import Monitor from '../../assets/images/Monitor.png'
 
 class Login extends React.Component<RouteProps,{[key:string]:any}>{
     constructor(props:any) {
@@ -35,8 +35,10 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
                             <div className="card-body p-0">
                                 <div className="row">
                                     <div className="col-lg-6 col-xl-6 d-none d-lg-flex">
-                                        <div className="flex-grow-1 bg-login-image"
-                                             style={{background:"url(/assets/img/dogs/Monitor.png) center"}}/>
+                                        <div className="flex-grow-1 bg-login-image"/>
+                                       
+                                             <img alt='logo' style={{ width: 480 }} src={Monitor} />
+                                        
                                     </div>
                                     <div className="col-lg-6">
                                         <div className="p-5">
@@ -93,3 +95,5 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
 }
 
 export default Login;
+   // style={{background:"url:(public\assets\img\dogs\Monitor.png)"}}/>
+//     //"url(/assets/img/dogs/Monitor.png) center"}}/>
