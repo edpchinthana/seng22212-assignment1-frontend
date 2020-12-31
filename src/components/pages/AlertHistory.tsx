@@ -24,6 +24,18 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
         }
     }
 
+    fetchSensorData = (from:any, to:any, sensor:any) => {
+        if(sensor!=null) {
+            this.props.getSensorData(sensor, from, to);
+        }
+    }
+
+    onSensorChange = (event: any ) => {
+        const sensor:any = this.props.sensors.filter((sen:any)=>sen.id==event);
+        this.fetchSensorData(this.props.from, this.props.to,sensor[0]);
+
+    }
+
     componentDidMount() {
         this.props.getAlertHistory();
     }
@@ -47,6 +59,20 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
                                                 <Dropdown.Menu>
                                                     {this.props.sensorCategories.map((category:any, index:number) => {
                                                         return <Dropdown.Item key={category.type} eventKey={category.type}>{category.title}</Dropdown.Item>
+                                                    })}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+
+                                        <div className="col" style={{marginRight: "10px"}}>
+                                            <Dropdown onSelect={(eventKey:any, e)=>this.onSensorChange(eventKey)}>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    {this.props.selectedSensor?this.props.selectedSensor.title:"Select Sensor"}
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu>
+                                                    {this.props.sensors.map((sensor:any, index:number)=>{
+                                                        return <Dropdown.Item key={sensor.id} eventKey={sensor.id}>{sensor.title}</Dropdown.Item>
                                                     })}
                                                 </Dropdown.Menu>
                                             </Dropdown>
