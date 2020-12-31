@@ -18,7 +18,6 @@ const Header: React.FC = () => {
 
                   <Nav.Link><Link to='/about' className='links'>About</Link></Nav.Link>
                   <Nav.Link><Link to='/alert-history' className='links'>Alert History</Link></Nav.Link>
-                  <Nav.Link><Link to='/signin' className='links'>Sign in</Link></Nav.Link>
                   <Nav.Link><Link to='/dashboard' className='links'>Dashboard</Link></Nav.Link>
                   <Nav.Link><Link to='/members'className='links'>Members</Link></Nav.Link>
               </Nav>

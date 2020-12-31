@@ -24,7 +24,7 @@ function ProtectedRoutes() {
                     />
                     <Route
                         exact
-                        path={'/alertHistory'}
+                        path={'/alert-history'}
                         component={AlertHistory}
                     />
                     <Route
