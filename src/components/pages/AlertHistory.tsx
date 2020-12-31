@@ -2,18 +2,10 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getAlertHistory } from "../../repositories/alertHistoryRepository";
+import {getSensorCategories, getSensors} from "../../repositories/sensorRepository";
 
 
 class AlertHistory extends React.Component<any, {[key:string]:any}> {
-
-    constructor(props: {}| Readonly<{}>) {
-        super(props);
-    }
-
-    getAlertHistory =async () => {
-        const alertHistory = await getAlertHistory();
-        this.props.getAlertHistory();
-    }
 
     onSensorCategoryChange =async (event: any) => {
         try{
@@ -24,19 +16,29 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
         }
     }
 
-    fetchSensorData = (from:any, to:any, sensor:any) => {
-        if(sensor!=null) {
-            this.props.getSensorData(sensor, from, to);
+    fetchSensorCategories =async () => {
+        try{
+            await this.props.getSensorCategories();
+        }catch (e) {
+            alert(e);
         }
     }
 
-    onSensorChange = (event: any ) => {
-        const sensor:any = this.props.sensors.filter((sen:any)=>sen.id==event);
-        this.fetchSensorData(this.props.from, this.props.to,sensor[0]);
+
+    onSensorChange =async (event: any ) => {
+        try{
+            const sensor:any = this.props.sensors.filter((sen:any)=>sen.id==event);
+            await this.props.getAlertHistory(sensor[0].sensorId);
+        }catch (e) {
+            alert(e);
+        }
 
     }
 
     componentDidMount() {
+        if(this.props.sensorCategories.length==0){
+            this.fetchSensorCategories();
+        }
         this.props.getAlertHistory();
     }
 
@@ -148,19 +150,12 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
 }
 
 const mapStateToProps = (state : any) => ({
-    alertHistory: state.alertHistory
+    alertHistory: state.alertHistory,
+    sensorCategories: state.sensors.categories,
+    selectedSensor: state.sensors.selectedSensor,
+    selectedCategory: state.sensors.selectedSensor,
+    sensors:state.sensors.sensors
 })
 
-export default connect(mapStateToProps, {getAlertHistory})(AlertHistory);
+export default connect(mapStateToProps, {getAlertHistory, getSensorCategories, getSensors})(AlertHistory);
 
-/* const AlertHistory: React.FC = () => {
-    document.title = 'weatherApp | alert history'
-    return (
-        <div className='min-vh-100'>
-            <br/><br/>
-            <h2 className='pt-4'>Alert History</h2>
-        </div>
-    );
-}
-
-export default AlertHistory; */

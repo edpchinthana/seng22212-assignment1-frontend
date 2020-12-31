@@ -18,14 +18,10 @@ function ProtectedRoutes() {
             <Header/>
             <div id="wrapper" className="pt-5">
                 <Switch>
+
                     <Route
                         exact
-                        path={"/dashboard"}
-                        component={Dashboard}
-                    />
-                    <Route
-                        exact
-                        path={'/alert-history'}
+                        path={'/alertHistory'}
                         component={AlertHistory}
                     />
                     <Route
@@ -36,6 +32,11 @@ function ProtectedRoutes() {
                         exact
                         path={'/settings'}
                         component={Settings}/>
+                    <Route
+                        exact
+                        path={"/dashboard"}
+                        component={Dashboard}
+                    />
                     <Route
                         path={"/*"}
                         component={PageNotFound}/>

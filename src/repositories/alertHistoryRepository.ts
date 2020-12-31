@@ -4,10 +4,14 @@ import {removeLoading, setLoading} from "../store/isLoading/actions";
 
 const endpoint = "/alert";
 
-export const getAlertHistory = () => async (dispatch : any) => {
+export const getAlertHistory = (sensorId: string) => async (dispatch : any) => {
     try{
         dispatch(setLoading());
-        const res =  await RestHTTP.GET(endpoint,[]);
+        const param= {
+            sensorId: sensorId
+        }
+
+        const res =  await RestHTTP.GET(endpoint,param);
         dispatch(fetchAlertHistory(res));
         dispatch(removeLoading());
     }catch (e) {

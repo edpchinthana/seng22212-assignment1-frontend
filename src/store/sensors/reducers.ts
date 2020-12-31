@@ -38,4 +38,3 @@ const sensorReducers = (state = initialState, action : any) => {
 }
 
 export default sensorReducers;
-
