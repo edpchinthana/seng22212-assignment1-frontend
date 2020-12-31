@@ -17,3 +17,16 @@ export const getAlertSubscribers = () => async (dispatch : any) => {
     }
 
 }
+
+export const addAlertSubscriber = (data : any) => async (dispatch : any) => {
+    
+    try{
+        dispatch(setLoading());
+        const res =  await RestHTTP.POST(endpoint,data);
+        dispatch(removeLoading());
+    }catch (e) {
+        dispatch(removeLoading());
+        throw e;
+    }
+
+}
