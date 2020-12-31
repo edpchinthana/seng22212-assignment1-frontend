@@ -8,6 +8,7 @@ import {Nav} from "react-bootstrap";
 import Members from "./pages/Members";
 import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
+import ManageSubscribers from "./pages/ManageSubscribers";
 
 
 function ProtectedRoutes() {
@@ -23,6 +24,11 @@ function ProtectedRoutes() {
                         exact
                         path={'/alertHistory'}
                         component={AlertHistory}
+                    />
+                    <Route
+                        exact
+                        path={'/alertSubscribers'}
+                        component={ManageSubscribers}
                     />
                     <Route
                         exact

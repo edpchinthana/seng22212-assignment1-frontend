@@ -3,10 +3,6 @@ import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const Header: React.FC = () => {
-    const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string) || '';
-    console.log(sensorCategories)
-    const dropdown: string =  "Temperature";
-
 
     return (
   <React.Fragment>
@@ -17,7 +13,8 @@ const Header: React.FC = () => {
               <Nav className="mr-auto">
 
                   <Nav.Link><Link to='/about' className='links'>About</Link></Nav.Link>
-                  <Nav.Link><Link to='/alert-history' className='links'>Alert History</Link></Nav.Link>
+                  <Nav.Link><Link to='/alertHistory' className='links'>Alert History</Link></Nav.Link>
+                  <Nav.Link><Link to='/alertSubscribers' className='links'>Alert Subscribers</Link></Nav.Link>
                   <Nav.Link><Link to='/dashboard' className='links'>Dashboard</Link></Nav.Link>
                   <Nav.Link><Link to='/members'className='links'>Members</Link></Nav.Link>
               </Nav>
