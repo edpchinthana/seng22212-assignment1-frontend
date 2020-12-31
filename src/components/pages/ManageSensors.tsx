@@ -253,6 +253,7 @@ class ManageSensors extends React.Component<any, any>{
                                                 <table className="table my-0" id="dataTable">
                                                     <thead>
                                                     <tr>
+                                                        <th>Sensor Id</th>
                                                         <th>Title</th>
                                                         <th>Threshold</th>
                                                         <th>Unit</th>
@@ -261,6 +262,7 @@ class ManageSensors extends React.Component<any, any>{
                                                     <tbody>
                                                     {this.props.sensors.map((sensor: any, index: number)=>{
                                                         return <tr key={sensor.id}>
+                                                            <td>{sensor.id}</td>
                                                             <td>{sensor.title}</td>
                                                             <td>{sensor.threshold}</td>
                                                             <td>{sensor.unit}</td>
@@ -269,6 +271,7 @@ class ManageSensors extends React.Component<any, any>{
                                                     </tbody>
                                                     <tfoot>
                                                     <tr>
+                                                        <td><strong>Sensor Id</strong></td>
                                                         <td><strong>Title</strong></td>
                                                         <td><strong>Threshold</strong></td>
                                                         <td><strong>Unit</strong></td>
