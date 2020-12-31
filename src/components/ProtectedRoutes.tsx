@@ -14,7 +14,7 @@ function ProtectedRoutes(){
     <div id="wrapper" className="pt-5">
         <Switch>
             <Route
-                // exact
+                exact
                 path={"/dashboard"}
                 component={Dashboard}
             />
