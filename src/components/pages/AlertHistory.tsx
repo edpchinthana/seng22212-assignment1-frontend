@@ -138,11 +138,6 @@ class AlertHistory extends React.Component<any, {[key:string]:any}> {
                             </div>
                         </div>
                     </div>
-                    <footer className="bg-white sticky-footer">
-                        <div className="container my-auto">
-                            <div className="text-center my-auto copyright"><span>Copyright © Monitor 2020</span></div>
-                        </div>
-                    </footer>
                 </div>;
 
     }

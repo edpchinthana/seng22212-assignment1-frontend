@@ -20,9 +20,6 @@ const Members: React.FC = () => {
                         <Card.Body>
                             <Card.Title>E. D. Pasindu Chinthana</Card.Title>
                             <Card.Subtitle>SE/2017/004</Card.Subtitle>
-                            <Card.Text>
-                                The team leader
-                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -32,9 +29,6 @@ const Members: React.FC = () => {
                         <Card.Body>
                             <Card.Title>G.H.A. Padma Gnanapriya</Card.Title>
                             <Card.Subtitle>SE/2017/014</Card.Subtitle>
-                            <Card.Text>
-                                Front-end-developer in this assigment
-                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -44,9 +38,6 @@ const Members: React.FC = () => {
                         <Card.Body>
                             <Card.Title>D.M.M. Maleesha Mihiranga</Card.Title>
                             <Card.Subtitle>SE/2017/002</Card.Subtitle>
-                            <Card.Text>
-                                Back-end-developer in this assigment
-                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -56,9 +47,6 @@ const Members: React.FC = () => {
                         <Card.Body>
                             <Card.Title>Githmi Anjana</Card.Title>
                             <Card.Subtitle>SE/2017/048</Card.Subtitle>
-                            <Card.Text>
-                                Back-end-developer in this assigment
-                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -68,9 +56,6 @@ const Members: React.FC = () => {
                         <Card.Body>
                             <Card.Title>M.D. Supuni Uthpala</Card.Title>
                             <Card.Subtitle>SE/2017/044</Card.Subtitle>
-                            <Card.Text>
-                                Front-end-developer ,C4 model creator in this assigment
-                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -80,9 +65,6 @@ const Members: React.FC = () => {
                         <Card.Body>
                             <Card.Title>H.M.K.Hansika Herath</Card.Title>
                             <Card.Subtitle>SE/2017/018</Card.Subtitle>
-                            <Card.Text>
-                             Authetication ,front end in this assigment
-                            </Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
