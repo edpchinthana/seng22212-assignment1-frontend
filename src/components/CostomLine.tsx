@@ -36,7 +36,16 @@ function CustomLine(props:any){
 
     }
 
-    return <Line data={chartData} height={35} width={100}/>
+    return(
+        <div>
+            <div className='d-none d-md-block d-lg-none'><Line data={chartData} width={100} height={50}/></div>
+            <div className='d-none d-lg-block'><Line data={chartData} width={100} height={35}/></div>
+            <div className='d-none d-sm-block d-md-none'><Line data={chartData} width={100} height={70}/></div>
+            <div className='d-sm-none'><Line data={chartData} width={90} height={100}/></div>
+        </div>
+    )
+
+    // ) <Line data={chartData} height={35} width={100}/>
 }
 
 export default CustomLine;
