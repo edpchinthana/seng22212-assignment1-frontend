@@ -1,7 +1,8 @@
 import axios from "axios";
 
 //const host="https://api-server-t2h37jtwmq-uc.a.run.app/api";
-const host="http://localhost:8080/api";
+//const host="http://localhost:8080/api";
+const host="https://api.monitor-sensor-management-system.live/api";
 export default {
 
     GET: async (endpoint:string, param:any) => {

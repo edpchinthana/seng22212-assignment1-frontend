@@ -144,7 +144,7 @@ class ManageSensors extends React.Component<any, any>{
                                                             Value</strong></label><input className="form-control"
                                                                                          type="number"
                                                                                          placeholder="45"
-                                                                                         name="threshold" required/></div>
+                                                                                         name="threshold" step={"0.01"} required/></div>
                                                     </div>
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label
@@ -208,7 +208,7 @@ class ManageSensors extends React.Component<any, any>{
                                                         <div className="form-group"><label htmlFor="first_name"><strong>Threshold
                                                             Value</strong></label><input className="form-control"
                                                                                          type="number"
-                                                                                         name="threshold" required placeholder={this.state.selectedSensor?this.state.selectedSensor.threshold:0}/></div>
+                                                                                         name="threshold" step={"0.01"} required placeholder={this.state.selectedSensor?this.state.selectedSensor.threshold:0}/></div>
                                                     </div>
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label
