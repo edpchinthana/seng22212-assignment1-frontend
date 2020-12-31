@@ -70,7 +70,7 @@ const Settings: React.FC = () => {
         <Container className='min-vh-100'>
             <br/><br/><br/>
             <h2>Settings</h2>
-            <br/>
+            <br/><br/>
             <div><h3>Sensor manage</h3>
 
                 <select name="sensors" id="sensors"
@@ -86,16 +86,18 @@ const Settings: React.FC = () => {
                 }
 
             </div>
-            <div><h3 onClick={() => setIsAdd(true)} style={{cursor: 'pointer'}}><i className="feather-plus-circle"/> Add
-                new sensor</h3>
+
+<br/><br/>
+            <div><h4 onClick={() => setIsAdd(true)} style={{cursor: 'pointer'}}><i className="feather-plus-circle"/> Add
+                new sensor</h4>
                 {
                     isAdd &&
                     <SensorForm formTitle={"Add Sensor"} sensor={{title: '', id: '', threshold: 0, type: '', unit: ''}}
                                 setIsUpdatable={setIsAdd}/>
                 }
             </div>
-
-            <div><h3>Sign out</h3></div>
+<br/><br/>
+         
             <Button className='p-button mt-3' onClick={handleSignOut}>Sign out</Button>
             <br/><br/>
         </Container>

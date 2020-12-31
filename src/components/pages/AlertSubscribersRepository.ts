@@ -1,7 +1,6 @@
-import RestHTTP from "../services/RestHTTP";
-
-import {removeLoading, setLoading} from "../store/isLoading/actions";
-import {fetchAlertSubscribers} from "../store/alertSubscribers/actions";
+import RestHTTP from "../../services/RestHTTP";
+import { fetchAlertSubscribers } from "../../store/alertSubscribers/actions";
+import { removeLoading, setLoading } from "../../store/isLoading/actions";
 
 const endpoint = "/alertSubscriber";
 
