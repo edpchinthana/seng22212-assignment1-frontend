@@ -13,7 +13,7 @@ const Settings: React.FC = () => {
     const [sensorType, setSensorType] = useState('');
     const [sensorSet, setSensorSet] = useState<ISensor[]>([]);
     const [isAdd, setIsAdd] = useState(false);
-    const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string);
+    const sensorCategories = JSON.parse(localStorage.getItem("SensorCategories") as string) || [];
 
     const handleSignOut = () => {
         const swalWithBootstrapButtons = Swal.mixin({

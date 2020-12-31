@@ -7,6 +7,7 @@ import Header from './Header';
 import {Nav} from "react-bootstrap";
 import Members from "./pages/Members";
 import Settings from "./pages/Settings";
+import PageNotFound from "./pages/PageNotFound";
 
 function ProtectedRoutes() {
 
@@ -34,6 +35,9 @@ function ProtectedRoutes() {
                         exact
                         path={'/settings'}
                         component={Settings}/>
+                    <Route
+                        path={"/*"}
+                        component={PageNotFound}/>
                 </Switch>
             </div>
         </div>
