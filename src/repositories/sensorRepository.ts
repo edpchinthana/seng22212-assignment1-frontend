@@ -50,6 +50,16 @@ export const addSensors = (sensor: any) => async(dispatch: any) => {
     }
 }
 
+export const updateSensor = (sensor: any) => async(dispatch: any) => {
+    try{
+        dispatch(setLoading());
+        await RestHTTP.PUT(sensorEndpoint,sensor);
+    }catch (e){
+        throw e;
+    }finally {
+        dispatch(removeLoading());
+    }
+}
 
 
 export const getSensorData = (sensor:any, from:any, to:any) => async (dispatch: any) => {

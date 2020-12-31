@@ -1,7 +1,13 @@
 import React from "react";
 import {Dropdown} from "react-bootstrap";
 import {connect} from "react-redux";
-import {addSensors, getSensorCategories, getSensorData, getSensors} from "../../repositories/sensorRepository";
+import {
+    addSensors,
+    getSensorCategories,
+    getSensorData,
+    getSensors,
+    updateSensor
+} from "../../repositories/sensorRepository";
 
 class ManageSensors extends React.Component<any, any>{
 
@@ -69,14 +75,23 @@ class ManageSensors extends React.Component<any, any>{
     }
 
     onUpdateSensor =async (event : any) => {
-        if(this.state.selectedSensor){
-            const sensor = {
-                title : this.state.selectedSensor.title,
-                type : this.state.selectedSensor.sensorType,
-                threshold : event.target.elements.threshold.value,
-                unit : this.state.selectedSensor.unit
+        event.preventDefault();
+
+        try{
+            if(this.state.selectedSensor){
+                const sensor = {
+                    id: this.state.selectedSensor.id,
+                    title : this.state.selectedSensor.title,
+                    type : this.state.selectedSensor.type,
+                    threshold : event.target.elements.threshold.value,
+                    unit : this.state.selectedSensor.unit
+                }
+                console.log(sensor)
+                await this.props.updateSensor(sensor);
+                await this.props.getSensors(this.props.selectedCategory);
             }
-            await this.props.getSensors(this.props.selectedCategory);
+        }catch (e) {
+            alert(e);
         }
 
     }
@@ -151,7 +166,7 @@ class ManageSensors extends React.Component<any, any>{
                                             <p className="text-primary m-0 font-weight-bold">Change Sensor Threshold</p>
                                         </div>
                                         <div className="card-body">
-                                            <form>
+                                            <form onSubmit={(e)=> this.onUpdateSensor(e)}>
                                                 <div className="form-row">
                                                     <div className="col-12 col-xl-4">
                                                         <div className="form-group"><label htmlFor="username"><strong>Sensor
@@ -193,8 +208,7 @@ class ManageSensors extends React.Component<any, any>{
                                                         <div className="form-group"><label htmlFor="first_name"><strong>Threshold
                                                             Value</strong></label><input className="form-control"
                                                                                          type="number"
-                                                                                         placeholder="45"
-                                                                                         name="threshold" required value={this.state.selectedSensor?this.state.selectedSensor.threshold:0}/></div>
+                                                                                         name="threshold" required placeholder={this.state.selectedSensor?this.state.selectedSensor.threshold:0}/></div>
                                                     </div>
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label
@@ -282,4 +296,4 @@ const mapStateToProps = (state : any) => ({
     selectedSensor:state.sensors.selectedSensor
 })
 
-export default connect(mapStateToProps,{getSensorCategories, getSensors, getSensorData, addSensors})(ManageSensors);
+export default connect(mapStateToProps,{getSensorCategories, getSensors, getSensorData, addSensors, updateSensor})(ManageSensors);
