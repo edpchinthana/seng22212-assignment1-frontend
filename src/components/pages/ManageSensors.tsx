@@ -68,6 +68,20 @@ class ManageSensors extends React.Component<any, any>{
         }
     }
 
+    onUpdateSensor =async (event : any) => {
+        if(this.state.selectedSensor){
+            const sensor = {
+                title : this.state.selectedSensor.title,
+                type : this.state.selectedSensor.sensorType,
+                threshold : event.target.elements.threshold.value,
+                unit : this.state.selectedSensor.unit
+            }
+            await this.props.getSensors(this.props.selectedCategory);
+        }
+
+    }
+
+
     render() {
         return <div className="d-flex flex-column" id="content-wrapper">
             <div id="content">
@@ -180,14 +194,15 @@ class ManageSensors extends React.Component<any, any>{
                                                             Value</strong></label><input className="form-control"
                                                                                          type="number"
                                                                                          placeholder="45"
-                                                                                         name="threshold"/></div>
+                                                                                         name="threshold" required value={this.state.selectedSensor?this.state.selectedSensor.threshold:0}/></div>
                                                     </div>
                                                     <div className="col-12 col-xl-6">
                                                         <div className="form-group"><label
-                                                            htmlFor="first_name"><strong>{this.props.selectedSensor?this.props.selectedSensor.unit:"Unit"}</strong></label><input
+                                                            htmlFor="first_name"><strong>Unit</strong></label><input
                                                             className="form-control" type="text"
                                                             placeholder="" name="unit"
                                                             disabled={true}
+                                                            value={this.state.selectedSensor?this.state.selectedSensor.unit:""}
                                                         /></div>
                                                     </div>
                                                 </div>
