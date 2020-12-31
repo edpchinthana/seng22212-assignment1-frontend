@@ -9,6 +9,7 @@ import Members from "./pages/Members";
 import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
 import ManageSubscribers from "./pages/ManageSubscribers";
+import ManageSensors from "./pages/ManageSensors";
 
 
 function ProtectedRoutes() {
@@ -29,6 +30,11 @@ function ProtectedRoutes() {
                         exact
                         path={'/alertSubscribers'}
                         component={ManageSubscribers}
+                    />
+                    <Route
+                        exact
+                        path={'/manageSensors'}
+                        component={ManageSensors}
                     />
                     <Route
                         exact

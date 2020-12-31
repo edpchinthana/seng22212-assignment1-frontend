@@ -37,6 +37,21 @@ export const getSensors = (category: any) => async(dispatch: any) => {
     }
 }
 
+export const addSensors = (sensor: any) => async(dispatch: any) => {
+    try{
+        dispatch(setLoading());
+        const sensors = [];
+        sensors.push(sensor)
+        const res = await RestHTTP.POST(sensorEndpoint,sensors);
+    }catch (e){
+        throw e;
+    }finally {
+        dispatch(removeLoading());
+    }
+}
+
+
+
 export const getSensorData = (sensor:any, from:any, to:any) => async (dispatch: any) => {
     try{
 
