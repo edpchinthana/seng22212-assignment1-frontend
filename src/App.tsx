@@ -6,6 +6,7 @@ import {Switch} from 'react-router';
 import './App.css';
 import './assets/style-sheets/main.scss'
 import Login from './components/pages/Login';
+import LoadingScreen from "./components/common/LoadingScreen";
 
 class App extends React.Component<{}, {[key:string]: any}>{
 
@@ -27,19 +28,19 @@ class App extends React.Component<{}, {[key:string]: any}>{
           }else{
            this.setState({user:null});
           }
-          setTimeout(()=>this.setState({loading:false}), 0);
+          setTimeout(()=>this.setState({loading:false}), 2000);
         })
       }catch (e) {
         alert(e);
-        setTimeout(()=>this.setState({loading:false}), 0);
+        setTimeout(()=>this.setState({loading:false}), 2000);
       }
     }
   
   
     render() {
-      return <div>
+      return <div id="page-top">
         {this.state.loading?
-            <div><h1>Loading</h1></div>
+            <LoadingScreen/>
             :this.state.user?
                 <ProtectedRoutes/>
                 :

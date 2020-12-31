@@ -14,10 +14,14 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
         }
     }
 
-    handleOnSubmit = (event: { preventDefault: () => void; }) => {
+    handleOnSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        userLogin(this.state.email, this.state.password, this.state.stayLogged).then(
-            e=>console.log("user logged")).catch((e)=>alert(e));
+        try {
+            console.log("login")
+            await userLogin(this.state.email, this.state.password, this.state.stayLogged)
+        } catch (e) {
+            alert(e);
+        }
     }
 
 
@@ -31,7 +35,7 @@ class Login extends React.Component<RouteProps,{[key:string]:any}>{
                             <div className="card-body p-0">
                                 <div className="row">
                                     <div className="col-lg-6 col-xl-6 d-none d-lg-flex">
-                                    <div className="flex-grow-1 bg-login-image"
+                                        <div className="flex-grow-1 bg-login-image"
                                              style={{background:"url(/assets/img/dogs/Monitor.png) center"}}/>
                                     </div>
                                     <div className="col-lg-6">

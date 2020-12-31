@@ -1,6 +1,7 @@
 import FirebaseApp from "../../FirebaseApp";
 import firebase from "firebase/app";
 import "firebase/auth";
+import {removeLoading, setLoading} from "../../store/isLoading/actions";
 
 export const userLogin = async (email: string, password: string , stayLogged:boolean) => {
     try{
@@ -22,3 +23,10 @@ export const signOutUser =  async () => {
         throw e;
     }
 }
+// export const getToken = async () => {
+//     return await FirebaseApp.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+//         return idToken;
+//     }).catch(function(error) {
+//         throw  error;
+//     });
+// }
