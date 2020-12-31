@@ -3,6 +3,7 @@ import axios from "axios";
 const host="https://api-server-t2h37jtwmq-uc.a.run.app/api";
 
 export default {
+
     GET: async (endpoint:string, param:any) => {
         return await axios.get(`${host}${endpoint}`,
             {
@@ -19,5 +20,23 @@ export default {
             throw error;
         })
 
+    },
+
+    POST: async (endpoint:string, data:any) => {
+        return await axios.post(`${host}${endpoint}`,
+            data,
+            {
+                headers: {
+                    'Authorization': `Bearer `,
+                    'Content-Type' : 'application/json'
+                },
+
+            }) .then((response) => {
+
+        })
+            .catch((e) => {
+                throw e
+            })
     }
+
 }
