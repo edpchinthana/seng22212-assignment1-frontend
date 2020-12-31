@@ -18,6 +18,7 @@ function ProtectedRoutes() {
     return (
         <div id="page-top">
             <Header/>
+            <br/>
             <div id="wrapper" className="pt-5">
                 <Switch>
 
@@ -49,6 +50,7 @@ function ProtectedRoutes() {
                         path={"/dashboard"}
                         component={Dashboard}
                     />
+                    <Redirect to={"/dashboard"}/>
                     <Route
                         path={"/*"}
                         component={PageNotFound}/>
