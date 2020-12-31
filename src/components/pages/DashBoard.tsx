@@ -1,123 +1,143 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Line} from "react-chartjs-2";
-import {useParams} from "react-router-dom";
-import {Col, Container, Row} from "react-bootstrap";
-import {API} from "../../data-fetch/RestAPITest";
-import {SensorMeta, sensorRecode} from "../../types/types";
-import Swal from "sweetalert2";
+import React from "react";
+import {signOutUser} from "../../services/auth/auth";
+import index, {Line} from "react-chartjs-2";
+import {Dropdown, DropdownButton} from "react-bootstrap";
+import {connect} from "react-redux";
+import {getSensorCategories, getSensorData, getSensors} from "../../repositories/sensorRepository";
+import CustomLine from "../CostomLine";
 
-const DashBoard: React.FC = () => {
-    document.title = 'weatherApp | Dashboard'
-    let {sensor}: any = useParams();
-    let icon = (sensor === 'temperature') ? "feather-thermometer" : (sensor === "rain") ? "feather-cloud-rain" :
-        (sensor === 'wind') ? "feather-wind" : "feather-cloud";
-    let day = new Date(Date.now() - 86400000 * 40);
-    const [startDate, setStartDate] = useState(day.toISOString().slice(0, 10));
-    const [endDate, setEndDate] = useState(new Date().toISOString().slice(0, 10));
-    const onChangeStartHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStartDate(e.target.value);
-    };
-    const onChangeEndHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEndDate(e.target.value);
-    };
-    const [sensorData, setSensorData] = useState<any>({labels: [], datasets: [], options: []});
-    const [lastRead, setLastRead] = useState<any>('');
-    const [sensorId, setSensorId] = useState<any>('');
-    const [sensorSet, setSensorSet] = useState<SensorMeta[]>([]);
+class Dashboard extends React.Component<any,{[key:string]:any}>{
 
-    let fetchedSensorSet: SensorMeta[];
-    const getSensorSet = async () => {
-        const r = await API.GET(`/sensor?sensorType=${sensor.toUpperCase()}`);
-        fetchedSensorSet = r;
-        return r;
+    constructor(props: any) {
+        super(props);
+
+
     }
 
-    useEffect(() => {
-        getSensorSet().then(() => {
-            let sensors = fetchedSensorSet.map((sen: SensorMeta) => sen);
-            setSensorSet(sensors);
-        })
+    onSensorCategoryChange = (event: any) => {
+        const category:any = this.props.sensorCategories.filter((cat:any)=>cat.type==event);
+        this.props.getSensors(category[0]);
+    }
 
-        if (sensor !== "temperature") {
-            Swal.fire('Sorry. Those type of sensors does not have setup.  ' +
-                'Temperature sensors only have been set up.');
-        } else {
-            Swal.fire('Please select the sensor and time range as you wish');
+    onSensorChange = (event: any ) => {
+        const sensor:any = this.props.sensors.filter((sen:any)=>sen.id==event);
+        console.log(sensor[0]);
+        this.fetchSensorData(this.props.from, this.props.to,sensor[0]);
+
+    }
+
+    fetchSensorData = (from:any, to:any, sensor:any) => {
+        if(sensor!=null) {
+            this.props.getSensorData(sensor, from, to);
         }
-    }, [sensor])
-
-    let fetchedDataSet: sensorRecode[];
-    const getRecord = async () => {
-        const r = await API.GET(`/data?sensorId=${sensorId}&from=${startDate}&to=${endDate}`);
-        fetchedDataSet = r;
-        return r
     }
 
-    useEffect(() => {
-        getRecord().then(() => {
-            let val = fetchedDataSet[fetchedDataSet.length - 1].dataValue;
-            let data = {
-                labels: fetchedDataSet.map((recode) => `${new Date(recode.capturedDate).getDate()}d-${new Date(recode.capturedDate).getHours()}:${new Date(recode.capturedDate).getMinutes()}h`),
-                datasets: [
-                    {
-                        label: sensor,
-                        data: fetchedDataSet.map((recode) => recode.dataValue),
-                        fill: false,
-                        borderColor: (sensor === 'wind') ? '#0d8c1a' : (sensor === 'temperature') ? '#ac1010' :
-                            (sensor === 'rain') ? '#0824b3' : '#13caaf'
-                    }
-                ],
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
-            };
-            setSensorData(data);
-            setLastRead(val);
-        })
+    onFromDateChange = (event: any) => {
+        this.fetchSensorData(event.target.value, this.props.to, this.props.selectedSensor);
 
-    }, [startDate, endDate, sensorId])
 
-    return (
-        <Container className='dashboard min-vh-100'>
-            <br/><br/>
-            <h2 className='pt-4 text-left'>Dashboard</h2>
-            <div className='p-dashboard-line'>
-                <Row>
-                    <Col xs={12} sm={12} md={4}>
-                        <i className={icon}/>
-                        <select name="sensors" id="sensors"
-                                onChange={(e: ChangeEvent<HTMLSelectElement>) => setSensorId(e.target.value)}>
-                            <option value=" ">Select Sensor</option>
-                            {sensorSet.map((value: SensorMeta, index:number) => <option key={index} value={value.id}>{value.title}</option>)}
-                        </select>
-                    </Col>
-                    <Col xs={12} sm={6} md={4}>
-                        <span className='float-left'>From:- </span>
-                        <input className='float-left' type="date" id="start-date" name="start_date"
-                               onChange={onChangeStartHandle}
-                               placeholder="" value={startDate ? startDate : ''}/>
-                    </Col>
-                    <Col xs={12} sm={6} md={4}>
-                        <span className='float-left'> To:- </span>
-                        <input className='float-left' type="date" id="end-date" name="end_date"
-                               onChange={onChangeEndHandle}
-                               placeholder="" value={endDate ? endDate : ''}/>
-                    </Col>
-                </Row>
-                <br/>
-                <div className='float-right pr-4'>
-                    <span className='float-left'>Last read value - </span>
-                    <span className='float-left'>{lastRead}</span>
+    }
+
+    onToDateChange = (event: any) => {
+        this.fetchSensorData(this.props.from,event.target.value,this.props.selectedSensor);
+
+    }
+
+    componentDidMount() {
+        if(this.props.sensorCategories.length==0){
+            this.props.getSensorCategories();
+        }
+
+    }
+
+
+    render() {
+        return <div className="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div className="container-fluid" style={{marginTop: "20px"}}>
+                    <div className="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 className="text-dark mb-0">Dashboard</h3><a
+                        className="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i
+                        className="fas fa-download fa-sm text-white-50"></i>&nbsp;Generate Report</a>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-12 col-xl-12">
+                            <div className="card shadow mb-4">
+                                <div className="card-header d-flex justify-content-between align-items-center">
+                                    <div className="row">
+                                        <div className="col">
+                                            <h6 className="text-primary font-weight-bold m-0">{this.props.selectedCategory?this.props.selectedCategory.title:"Select Sensor Category"}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="card-body">
+                                    <div className="row" style={{marginBottom: "30px"}}>
+                                        <div className="col" style={{marginRight: "10px"}}>
+                                            <Dropdown onSelect={(event:any)=>this.onSensorCategoryChange(event)}>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    {this.props.selectedCategory?this.props.selectedCategory.title:"Select Category"}
+
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu>
+                                                    {this.props.sensorCategories.map((category:any, index:number) => {
+                                                        return <Dropdown.Item key={category.type} eventKey={category.type}>{category.title}</Dropdown.Item>
+                                                    })}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                        <div className="col" style={{marginRight: "10px"}}>
+                                            <Dropdown onSelect={(eventKey:any, e)=>this.onSensorChange(eventKey)}>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    {this.props.selectedSensor?this.props.selectedSensor.title:"Select Sensor"}
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu>
+                                                    {this.props.sensors.map((sensor:any, index:number)=>{
+                                                        return <Dropdown.Item key={sensor.id} eventKey={sensor.id}>{sensor.title}</Dropdown.Item>
+                                                    })}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                        <div className="col"
+                                             style={{marginRight: "10px", height: "38px",paddingTop:" 5px",paddingLeft: "24px"}}>
+                                            <strong>From&nbsp;</strong><input type="date"
+                                                                              value={this.props.from}
+                                                                              max={this.props.to}
+                                                                              onChange={(e)=>this.onFromDateChange(e)}
+                                                                              style={{color: "rgb(133,135,150)",borderWidth: "0px",filter:"brightness(100%) grayscale(0%) invert(0%)"}}/>
+                                        </div>
+                                        <div className="col"
+                                             style={{marginRight: "10px",paddingTop: "5px",paddingLeft:"24px"}}>
+                                            <strong>To&nbsp;&nbsp;</strong><input type="date"
+                                                                                  value={this.props.to}
+                                                                                  onChange={(e)=>this.onToDateChange(e)}
+                                                                                  min={this.props.from}
+                                                                                  style={{color:" rgb(133,135,150)",borderWidth:"0px",filter:" brightness(100%) grayscale(0%) invert(0%)"}}/>
+                                        </div>
+                                    </div>
+                                    <div className="chart-area mb-2">
+                                        <CustomLine data={this.props.sensorData}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className='d-none d-md-block d-lg-none'><Line data={sensorData} width={100} height={50}/></div>
-            <div className='d-none d-lg-block'><Line data={sensorData} width={100} height={35}/></div>
-            <div className='d-none d-sm-block d-md-none'><Line data={sensorData} width={100} height={70}/></div>
-            <div className='d-sm-none'><Line data={sensorData} width={90} height={100}/></div>
-            <br/><br/>
-        </Container>
-    );
+        </div>;
+    }
 }
 
-export default DashBoard;
+const mapStateToProps = (state : any) => ({
+    sensorCategories: state.sensors.categories,
+    sensors: state.sensors.sensors,
+    sensorData: state.sensors.sensorData,
+    from: state.sensors.from,
+    to:state.sensors.to,
+    selectedCategory:state.sensors.selectedCategory,
+    selectedSensor:state.sensors.selectedSensor
+})
+
+
+export default connect(mapStateToProps,{getSensorCategories, getSensors, getSensorData})(Dashboard);

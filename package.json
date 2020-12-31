@@ -1,6 +1,6 @@
 {
-  "homepage": "https://PadmaGnanapriya.github.io/weather-app-assignment",
-  "name": "weather-app-assignment",
+  "homepage": "https://PadmaGnanapriya.github.io",
+  "name": "monitor-sensor-data-management-system",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,18 +12,24 @@
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
     "@types/react-router-dom": "^5.1.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
+    "firebase": "^7.24.0",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-axios": "^2.0.4",
     "react-bootstrap": "^1.4.0",
     "react-chartjs-2": "^2.11.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-guards": "^1.0.2",
     "react-scripts": "4.0.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "sweetalert2": "^10.12.5",
     "typescript": "^4.1.3",
     "web-vitals": "^0.2.4"
@@ -55,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.14",
     "gh-pages": "^3.1.0"
   }
 }
